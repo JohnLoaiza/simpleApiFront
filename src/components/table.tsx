@@ -4,6 +4,7 @@ import { FaEdit, FaTrash, FaSync, FaPlus } from 'react-icons/fa'; // Importar í
 import './Table.css'; // Archivo de estilos para personalizar la tabla
 import axios from 'axios';
 import GeneralModal from './editModal';
+import DynamicKeyValue from './createDb';
 
 const Table: React.FC = () => {
   // Obtiene los parámetros de la ruta
@@ -62,14 +63,15 @@ const Table: React.FC = () => {
         console.log('no hay que actualizar');
       });
       if (response) {
-       dataList.push({id: response!.data.id, propierties: doc.propierties})
-       setDataList([...dataList])
+
+       getData()
       }
   };
 
   return (
     <div className="table-container">
-      <header className="header">
+        <> {dataList.length > 0 ? <>
+            <header className="header">
         <h1 onClick={() => console.log(dataList)}>Project: {project}</h1>
         <h2>Collection: {collection}</h2>
       </header>
@@ -105,6 +107,9 @@ const Table: React.FC = () => {
       ) : (
         <></>
       )}
+        </> : <DynamicKeyValue addDoc={addDoc}></DynamicKeyValue>}
+        </>
+     
     </div>
   );
 };

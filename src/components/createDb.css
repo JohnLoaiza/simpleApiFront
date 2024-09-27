@@ -1,0 +1,55 @@
+/* DynamicKeyValue.css */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 600px; /* Ajusta según sea necesario */
+    margin: 0 auto; /* Centrando el contenedor */
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .indicadores-container {
+    display: flex;
+    justify-content: space-between; /* Espaciado entre los indicadores */
+    width: 100%;
+    margin-bottom: 10px; /* Espacio entre indicadores y lista */
+  }
+  
+  .indicador {
+    font-weight: bold; /* Resalta el texto de los indicadores */
+    width: 48%; /* Asegura que los indicadores ocupen el mismo espacio */
+  }
+  
+  .pares-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-height: 300px; /* Tamaño máximo para la lista de pares */
+    overflow-y: auto; /* Habilita el desplazamiento vertical */
+    width: 100%;
+    border: 1px solid #ccc; /* Bordes opcionales */
+    padding: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .par-item {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .pares-lista {
+    max-height: 200px; /* Tamaño máximo para la lista de pares actuales */
+    overflow-y: auto; /* Habilita el desplazamiento vertical */
+    width: 70%;
+    border: 1px solid #ccc; /* Bordes opcionales */
+    padding: 10px;
+    text-align: left; /* Alineación a la izquierda */
+    background-color: #5b5959; /* Color de fondo */
+    border-radius: 4px; /* Bordes redondeados */
+    white-space: pre-wrap; /* Mantiene los espacios en blanco y saltos de línea */
+    word-wrap: break-word; /* Permite que las palabras largas se rompan */
+  }
+  
