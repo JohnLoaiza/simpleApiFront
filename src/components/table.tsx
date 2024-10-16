@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+
 import { FaEdit, FaTrash, FaSync, FaPlus } from 'react-icons/fa'; // Importar íconos adicionales
 import './Table.css'; // Archivo de estilos para personalizar la tabla
 import axios from 'axios';
 import GeneralModal from './editModal';
 import DynamicKeyValue from './createDb';
 
-const Table: React.FC = () => {
+type Props = {
+  project: string;
+  collection: string;
+  setEditModal: any
+}
+
+const Table = (props : Props) => {
   // Obtiene los parámetros de la ruta
-  const { project, collection } = useParams<{ project: string; collection: string }>();
+  // const { project, collection } = useParams<{ project: string; collection: string }>();
+  const { project, collection, setEditModal } = props;
   const [indexList, setIndexList] = useState<string[]>([]);
   const [dataList, setDataList] = useState<any[]>([]);
-  const [editModal, setEditModal] = useState({ flag: false, doc: undefined, asEdit:false });
 
   useEffect(() => {
     getData();
@@ -63,7 +69,6 @@ const Table: React.FC = () => {
         console.log('no hay que actualizar');
       });
       if (response) {
-
        getData()
       }
   };
@@ -72,12 +77,12 @@ const Table: React.FC = () => {
     <div className="table-container">
         <> {dataList.length > 0 ? <>
             <header className="header">
-        <h1 onClick={() => console.log(dataList)}>Project: {project}</h1>
-        <h2>Collection: {collection}</h2>
+        <h1 onClick={() => console.log(dataList)}>Proyecto: {project}</h1>
+        <h2>Colección: {collection}</h2>
       </header>
       <div className="action-icons">
         <FaSync onClick={async ()=> await getData()} style={{ cursor: 'pointer', marginRight: '10px' }} title="Reload Data" />
-        <FaPlus onClick={() => setEditModal({ flag: true, doc: undefined, asEdit:false })} style={{ cursor: 'pointer', marginRight: '10px' }} title="Add New" />
+        <FaPlus onClick={() => setEditModal({ flag: true, doc: undefined, asEdit:false, addDoc: addDoc, editDoc: editDoc,indexList: indexList  })} style={{ cursor: 'pointer', marginRight: '10px' }} title="Add New" />
       </div>
       <table className="styled-table">
         <thead>
@@ -102,11 +107,7 @@ const Table: React.FC = () => {
           ))}
         </tbody>
       </table>
-      {editModal.flag ? (
-        <GeneralModal addDoc={addDoc} asEdit={editModal.asEdit} editDoc={editDoc} indexList={indexList} doc={editModal.doc} onClose={() => setEditModal({ flag: false, doc: undefined, asEdit: false })}></GeneralModal>
-      ) : (
-        <></>
-      )}
+     
         </> : <DynamicKeyValue addDoc={addDoc}></DynamicKeyValue>}
         </>
      

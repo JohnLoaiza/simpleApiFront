@@ -1,88 +1,83 @@
 .table-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh; /* Ocupa todo el alto de la pantalla */
-    width: 100vw; /* Ocupa todo el ancho de la pantalla */
-    padding: 0; /* Sin padding para maximizar el espacio */
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
-  }
-  
-  .header {
-    margin-bottom: 20px;
-    text-align: center;
-  }
-  
-  .styled-table {
-    width: 95%; /* Ocupa casi todo el ancho disponible */
-    height: auto;
-    max-width: 1400px; /* Define un ancho máximo para pantallas muy grandes */
-    border-collapse: collapse;
-    font-size: 1em;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  }
-  
-  .styled-table thead tr {
-    background-color: #009879;
-    color: #ffffff;
-  }
-  
-  .styled-table th,
-  .styled-table td {
-    padding: 12px 15px;
-    text-align: center;
-  }
-  
-  .styled-table tbody tr {
-    border-bottom: 1px solid #dddddd;
-  }
-  
-  .styled-table tbody tr:last-of-type {
-    border-bottom: 2px solid #009879;
-  }
-  
-  .styled-table tbody tr:hover {
-    background-color: #726f6f; /* Cambia el color solo al pasar el cursor */
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* Cambiado a flex-start */
+  height: 100vh;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  overflow-x: auto; /* Permitir scroll horizontal solo dentro del área disponible */
+  width: 70vw;
+}
 
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.6);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow-y: auto;
-  }
+.styled-table {
+  width: 100%;
+  height: auto;
+  max-width: 1200px; /* Ajuste para pantallas muy grandes */
+  border-collapse: collapse;
+  font-size: 1em;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  overflow-x: auto; /* Scroll horizontal */
+}
 
-  .modal-content {
-    background: #5d5a5a;
-    padding: 10px;
-    border-radius: 8px;
-    overflow-y: auto;
-    max-width: 90%;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    display: flex;
-    flex-direction: column;
-    max-height: 95vh;
-  }
+.styled-table thead tr {
+  background-color: #009879;
+  color: #ffffff;
+}
 
-  .modal-buttons {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 20px;
-  }
+.styled-table th,
+.styled-table td {
+  padding: 12px 15px;
+  text-align: center;
+}
 
-  .action-icons {
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-  }
-  
+.styled-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+.styled-table tbody tr:hover {
+  background-color: #726f6f;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+}
+
+.modal-content {
+  background: #5d5a5a;
+  padding: 10px;
+  border-radius: 8px;
+  overflow-y: auto;
+  max-width: 90%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  max-height: 95vh;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.action-icons {
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+}
