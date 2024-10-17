@@ -47,11 +47,11 @@ const GeneralModal = (props: modalProps) => {
             <div className="modal-content">
                 <h2>Title</h2>
                 {indexList.map((i) => <label>
-                    {i}
-                    <input type="text" value={document && !edit ? document.propierties[i] : undefined} onChange={(e) => change(e, i)} />
+                   <div style={{width: '10%'}}>{i}</div> 
+                   <div style={{width: '10%'}}> <input type="text" value={document && !edit ? document.propierties[i] : undefined} onChange={(e) => change(e, i)} /></div>    
                 </label>)}
                 <div className="modal-buttons">
-                    <button type="button" onClick={() => asEdit ? submitEdit() : submitAdd()} className="submit-button">Submit</button>
+                    <button type="button" onClick={() => asEdit ? submitEdit() : submitAdd()} className="submit-button">{asEdit ? 'Editar' : 'Crear'}</button>
                     <button type="button" onClick={onClose} className="cancel-button">Cancel</button>
                 </div>
             </div>

@@ -100,7 +100,7 @@ const Table = (props : Props) => {
                 <td key={i}>{doc.propierties[i]}</td>
               ))}
               <td>
-                <FaEdit onClick={() => setEditModal({ flag: true, doc: doc, asEdit: true })} style={{ cursor: 'pointer', marginRight: '10px' }} />
+                <FaEdit onClick={() => setEditModal({ flag: true, doc: doc, asEdit: true,  addDoc: addDoc, editDoc: editDoc,indexList: indexList  })} style={{ cursor: 'pointer', marginRight: '10px' }} />
                 <FaTrash onClick={() => deleteDoc(doc.id)} style={{ cursor: 'pointer', color: 'red' }} />
               </td>
             </tr>
