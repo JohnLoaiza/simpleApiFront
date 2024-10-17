@@ -9,9 +9,7 @@ interface modalProps {
     addDoc: ( doc: any) => void
 }
 
-
-
-const GeneralModal = (props: modalProps) => {
+const EditModal = (props: modalProps) => {
     const { doc, onClose, indexList, editDoc, asEdit = false, addDoc } = props;
     const [document, setDocument] = useState<any>();
     const [edit, setEdit] = useState(false)
@@ -59,4 +57,4 @@ const GeneralModal = (props: modalProps) => {
     );
 };
 
-export default GeneralModal;
+export default EditModal;

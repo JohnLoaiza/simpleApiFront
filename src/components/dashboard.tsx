@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import Sidebar from './Sidebar';
 import ModuleContent from './ModuleContent';
 import styles from './styles.module.css';
-import GeneralModal from './editModal';
+import EditModal from './editModal';
 
 const Dashboard: React.FC = () => {
   const [selectedModule, setSelectedModule] = useState<string>('Home');
@@ -32,7 +32,7 @@ const Dashboard: React.FC = () => {
         </div>}
       </div>
       {editModal.flag ? (
-        <GeneralModal addDoc={editModal.addDoc} asEdit={editModal.asEdit} editDoc={editModal.editDoc} indexList={editModal.indexList} doc={editModal.doc} onClose={() => setEditModal({ flag: false, doc: undefined, asEdit:false, addDoc: () => {}, editDoc: () => {}, indexList: [] })}></GeneralModal>
+        <EditModal addDoc={editModal.addDoc} asEdit={editModal.asEdit} editDoc={editModal.editDoc} indexList={editModal.indexList} doc={editModal.doc} onClose={() => setEditModal({ flag: false, doc: undefined, asEdit:false, addDoc: () => {}, editDoc: () => {}, indexList: [] })}></EditModal>
       ) : (
         <></>
       )}
