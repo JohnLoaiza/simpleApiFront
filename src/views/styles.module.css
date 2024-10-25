@@ -32,6 +32,7 @@ h1 {
   display: flex;
   flex-direction: column;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  justify-content: space-between;
 }
 
 .sidebar h2 {
@@ -44,7 +45,7 @@ h1 {
   list-style-type: none;
 }
 
-.sidebar ul li {
+.rolColorAdmin {
   padding: 15px;
   margin: 10px 0;
   cursor: pointer;
@@ -53,9 +54,48 @@ h1 {
   color: #ecf0f1;
 }
 
-.sidebar ul li:hover {
+.rolColorAdmin:hover {
   background-color: #1abc9c;
 }
+
+.rolColorTeacher {
+  padding: 15px;
+  margin: 10px 0;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  color: #ecf0f1;
+}
+
+.rolColorTeacher:hover {
+  background-color: #1a63bc;
+}
+.rolColorStudent {
+  padding: 15px;
+  margin: 10px 0;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  color: #ecf0f1;
+}
+
+.rolColorStudent:hover {
+  background-color: #9aa738;
+}
+
+.rolColor {
+  padding: 15px;
+  margin: 10px 0;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  color: #ecf0f1;
+}
+
+.rolColor:hover {
+  background-color: transparent;
+}
+
 
 .sidebar ul li.active {
   background-color: #16a085;

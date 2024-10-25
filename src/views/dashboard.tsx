@@ -5,12 +5,28 @@ import ModuleContent from '../components/ModuleContent';
 import styles from './styles.module.css';
 import EditModal from '../components/editModal';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { apiRoute, dbName } from '../configs';
+
+export interface Settings {
+  sesion:false,
+  userId: ''
+}
+
+export interface User {
+  roles: string[],
+  username: string
+}
 
 const Dashboard: React.FC = () => {
   const storage = localStorage.getItem('settings')
-  const navigate = useNavigate(); // Hook de navegación
+  const navigate = useNavigate();
+  const [user , setUser] = useState({
+    roles: [],
+    username: ''
+  })
 
-  const settings = storage ? JSON.parse(storage) : {
+  const settings: Settings = storage ? JSON.parse(storage) : {
     sesion:false,
     userId: ''
 } ;
@@ -32,18 +48,40 @@ const Dashboard: React.FC = () => {
 
   useEffect(() => {
    if(settings.sesion) {
-
+    getDataByUserId()
    } else {
     navigate('/login');
    }
 }, []);
 
+const getDataByUserId = async () => {
+  console.log('trae');
+  console.log(`${apiRoute}/${dbName}/users/${settings.userId}`);
+  
+  
+  const response = await axios.get(`${apiRoute}/${dbName}/users/${settings.userId}`).then(
+    (response) => {
+      console.log(response.data);
+      setUser({
+        roles: JSON.parse(response.data.propierties.roles),
+        username: response.data.propierties.username
+      })    }
+
+  ).catch(
+    (error) => {
+      console.error(error);
+      alert('No se pudo encontrar usuario con este id')
+      navigate('/login');
+    }
+  );
+}
+
   return (
     <div className={styles.dashboard}>
-      <Sidebar onSelectModule={handleChange} />
+      <Sidebar userSettings ={user} onSelectModule={handleChange} />
       <div className={styles.content}>
         <h1>{selectedModule}</h1>
-        {!loading ? <ModuleContent module={selectedModule} setEditModal={setEditModal} /> : 
+        {!loading ? <ModuleContent userSettings ={user} module={selectedModule} setEditModal={setEditModal} /> : 
         <div className="spinner-container">
           <div className="spinner"></div>
         </div>}

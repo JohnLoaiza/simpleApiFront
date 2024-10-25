@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import styles from './styles.module.css';
 import { apiRoute, dbName } from '../configs';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const rolesList = ['Admin', 'Profesor', 'Estudiante']; // Lista de roles disponibles
 
@@ -14,6 +14,7 @@ const Register: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [message, setMessage] = useState<string | null>(null);
     const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
+    const navigate = useNavigate()
 
     const handleRegister = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -43,6 +44,8 @@ const Register: React.FC = () => {
 
             // Manejamos la respuesta exitosa del registro
             setMessage(insertResponse.data.message || 'Registro exitoso');
+            alert('Registro exitoso, ya puedes iniciar sesión')
+            navigate('/login'); // Redirige a la ruta principal
         } catch (err: any) {
             setError(err.response?.data?.message || err.message || 'Error desconocido');
         } finally {
@@ -106,10 +109,6 @@ const Register: React.FC = () => {
                 <button type="submit" className={styles.submitButton}>
                     {loading ? 'Cargando...' : 'Registrar'}
                 </button>
-
-                {hashedPassword && (
-                    <p>Contraseña encriptada: {hashedPassword}</p>
-                )}
             </form>
             <p className={styles.registerPrompt}>
                     ¿Ya tienes una cuenta?{' '}
