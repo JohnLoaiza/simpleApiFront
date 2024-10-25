@@ -1,6 +1,7 @@
 // components/ModuleContent.tsx
 import React from 'react';
 import Table from './table';
+import { dbName } from '../configs';
 
 interface ModuleContentProps {
     module: string;
@@ -13,7 +14,7 @@ const ModuleContent = ({ module, setEditModal }: ModuleContentProps) => {
             case 'Home':
                 return <div>Welcome to the Home module! Here you can see a dashboard overview.</div>;
             default:
-                return <Table project={'programacionSoftware'} collection={module} setEditModal={setEditModal}></Table>;
+                return <Table project={dbName} collection={module} setEditModal={setEditModal}></Table>;
 
         }
     };

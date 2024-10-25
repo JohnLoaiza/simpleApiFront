@@ -1,6 +1,6 @@
 // components/Sidebar.tsx
 import React from 'react';
-import styles from './styles.module.css';
+import styles from '../views/styles.module.css';
 
 interface SidebarProps {
   onSelectModule: (module: string) => void;

@@ -1,11 +1,20 @@
 // components/Dashboard.tsx
-import React, { useState } from 'react';
-import Sidebar from './Sidebar';
-import ModuleContent from './ModuleContent';
+import React, { useEffect, useState } from 'react';
+import Sidebar from '../components/Sidebar';
+import ModuleContent from '../components/ModuleContent';
 import styles from './styles.module.css';
-import EditModal from './editModal';
+import EditModal from '../components/editModal';
+import { useNavigate } from 'react-router-dom';
 
 const Dashboard: React.FC = () => {
+  const storage = localStorage.getItem('settings')
+  const navigate = useNavigate(); // Hook de navegación
+
+  const settings = storage ? JSON.parse(storage) : {
+    sesion:false,
+    userId: ''
+} ;
+
   const [selectedModule, setSelectedModule] = useState<string>('Home');
   const [loading, setLoading] = useState(false)
   const [editModal, setEditModal] = useState({ flag: false, doc: undefined, asEdit:false, addDoc: () => {}, editDoc: () => {}, indexList: [] });
@@ -20,6 +29,14 @@ const Dashboard: React.FC = () => {
       setLoading(false)
     }, 100);
   }
+
+  useEffect(() => {
+   if(settings.sesion) {
+
+   } else {
+    navigate('/login');
+   }
+}, []);
 
   return (
     <div className={styles.dashboard}>

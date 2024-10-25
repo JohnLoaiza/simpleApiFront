@@ -5,6 +5,7 @@ import './Table.css'; // Archivo de estilos para personalizar la tabla
 import axios from 'axios';
 import GeneralModal from './editModal';
 import DynamicKeyValue from './createDb';
+import { apiRoute } from '../configs';
 
 type Props = {
   project: string;
@@ -25,7 +26,7 @@ const Table = (props : Props) => {
   }, []);
 
   const getData = async () => {
-    const response = await axios.get(`http://localhost:5020/Dynamic/${project}/${collection}`).catch(() => {
+    const response = await axios.get(`${apiRoute}/${project}/${collection}`).catch(() => {
       console.log('no hay que actualizar');
     });
 
@@ -39,7 +40,7 @@ const Table = (props : Props) => {
   };
 
   const deleteDoc = async (id: string) => {
-    const response = await axios.delete(`http://localhost:5020/Dynamic/${project}/${collection}/${id}`).catch(() => {
+    const response = await axios.delete(`${apiRoute}/${project}/${collection}/${id}`).catch(() => {
       console.log('no hay que actualizar');
     });
 
@@ -52,7 +53,7 @@ const Table = (props : Props) => {
   };
 
   const editDoc = async (id: string, doc: any) => {
-    const response = await axios.put(`http://localhost:5020/Dynamic/${project}/${collection}/update/${id}`,doc.propierties).catch(() => {
+    const response = await axios.put(`${apiRoute}/${project}/${collection}/update/${id}`,doc.propierties).catch(() => {
         console.log('no hay que actualizar');
       });
       if (response) {
@@ -65,7 +66,7 @@ const Table = (props : Props) => {
   };
 
   const addDoc = async (doc: any) => {
-    const response = await axios.post(`http://localhost:5020/Dynamic/${project}/${collection}/insert`,doc.propierties).catch(() => {
+    const response = await axios.post(`${apiRoute}/${project}/${collection}/insert`,doc.propierties).catch(() => {
         console.log('no hay que actualizar');
       });
       if (response) {
