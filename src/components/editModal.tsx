@@ -13,7 +13,6 @@ interface modalProps {
 const EditModal = (props: modalProps) => {
     const { doc, onClose, indexList, editDoc, asEdit = false, addDoc } = props;
     const [document, setDocument] = useState<any>();
-    const [edit, setEdit] = useState(false)
 
     const submitEdit = () => {
         console.log(document.propierties); editDoc(document.id, document); onClose()
@@ -25,13 +24,23 @@ const EditModal = (props: modalProps) => {
     const change = (e: React.ChangeEvent<HTMLInputElement>, i: string) => {
         document.propierties[i] = e.target.value;
         setDocument(document);
-        setEdit(true)
     }
 
     useEffect(() => {
         asEdit ? setDocument(doc) : setDocument({ id: 0, propierties: {} })
         return () => { };
     }, []);
+
+    const objectForm = (finalValue: any, key: string) => {
+
+
+        return <>
+        <div>
+            <label>{key + ': '}</label>
+            {objetcToForm(Object.keys(finalValue), finalValue)}
+        </div>
+    </>
+    }
 
     const objetcToForm = (indexList: string[], objetc: any) => {
         var finalList: JSX.Element[] = [];
@@ -43,8 +52,6 @@ const EditModal = (props: modalProps) => {
                 jsonParse = JSON.parse(objetc[i])
                 console.log('json parse es ');
                 console.log(jsonParse);
-
-
             } catch { }
             if (isObject(jsonParse)) {
                 finalValue = JSON.parse(JSON.stringify(jsonParse));
@@ -52,19 +59,12 @@ const EditModal = (props: modalProps) => {
                 console.log(finalValue);
                 console.log('indexes son');
                 console.log(Object.keys(finalValue));
-
-
-
-                render = <>
-                    <div>
-                        <label>{i + ': '}</label>
-                        {objetcToForm(Object.keys(finalValue), finalValue)}
-                    </div>
-                </>
+                render = objectForm(finalValue, i);
 
             } else if (Array.isArray(jsonParse)) {
                 finalValue = jsonParse
-                render = isObject(finalValue[0]) ? renderObjectList(finalValue): <>
+                render = isObject(finalValue[0]) ? (asEdit? renderObjectList(finalValue) :<>{objetcToForm(Object.keys(finalValue[0]), finalValue)}</> ): (asEdit?
+                 <>
                 <strong> {'Lista de ' + i}</strong>   
                 <ul>
                     {finalValue.map((e: any) => {
@@ -74,17 +74,18 @@ const EditModal = (props: modalProps) => {
                         </>
                     })}
                     </ul>
-                   
-
-                </>
+                </>: <label>
+                    <div style={{ width: '10%' }}>{i}</div>
+                    <div style={{ width: '10%' }}> <input type="text" value={undefined} onChange={(e) => change(e, i)} /></div>
+                </label>
+                
+            )
             }
 
             else {
                 finalValue = objetc[i];
                 console.log('pasa derecho ');
                 console.log(finalValue);
-
-
                 render = <label>
                     <div style={{ width: '10%' }}>{i}</div>
                     <div style={{ width: '10%' }}> <input type="text" value={document && asEdit ? finalValue : undefined} onChange={(e) => change(e, i)} /></div>
@@ -119,5 +120,7 @@ const EditModal = (props: modalProps) => {
         </div>
     );
 };
+
+
 
 export default EditModal;
