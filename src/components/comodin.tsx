@@ -107,7 +107,7 @@ const EditModal = (props: modalProps) => {
                 console.log('indexes son');
                 console.log(Object.keys(finalValue));
                 render = <>
-                <div style={{backgroundColor: getRandomLightColor(), borderRadius: '5px', padding: '3px'}}>
+                <div style={{backgroundColor: '', borderRadius: '5px', padding: '3px'}}>
                     <label><strong>{i + ': '}</strong></label>
                     {objetcToForm(Object.keys(finalValue), finalValue, true,i, byArray)}
                 </div>
@@ -128,7 +128,7 @@ const EditModal = (props: modalProps) => {
                         </ul>
                     </> : <label>
                         <div style={{ width: '10%' }}>{i}</div>
-                        <div style={{ width: '10%' }}> <input type="text" value={''}  onChange={(e) => changeAsArray(e, i)} /></div>
+                        <div style={{ width: '10%' }}> <input type="text"  onChange={(e) => changeAsArray(e, i)} /></div>
                     </label>
 
                 )
