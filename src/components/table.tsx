@@ -84,7 +84,7 @@ const Table = (props: Props) => {
         </header>
         <div className="action-icons">
           <FaSync onClick={async () => await getData()} style={{ cursor: 'pointer', marginRight: '10px' }} title="Reload Data" />
-          <FaPlus onClick={() => setEditModal({ flag: true, doc: undefined, asEdit: false, addDoc: addDoc, editDoc: editDoc, indexList: indexList })} style={{ cursor: 'pointer', marginRight: '10px' }} title="Add New" />
+          <FaPlus onClick={() => setEditModal({ flag: true, doc: dataList[0], asEdit: false, addDoc: addDoc, editDoc: editDoc, indexList: indexList })} style={{ cursor: 'pointer', marginRight: '10px' }} title="Add New" />
         </div>
         <table className="styled-table">
           <thead>

@@ -23,6 +23,10 @@ export const identificateVar = (myVariable: MyType, isString: any, isArray: any,
 
 export function isJSON(str: string): boolean {
   // Comprobación preliminar
+  console.log('compureba si es json a ');
+  console.log(str);
+
+
   if (str.trim().startsWith("{") && str.trim().endsWith("}") ||
     str.trim().startsWith("[") && str.trim().endsWith("]")) {
     try {
@@ -35,7 +39,7 @@ export function isJSON(str: string): boolean {
   return false; // No comienza ni termina como JSON
 }
 
-function isObject(value: any): value is object {
+export function isObject(value: any): value is object {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
@@ -70,7 +74,49 @@ export const objetctToView = (info: any) => Object.keys(info).map((k) => {
   );
 });
 
+export const renderObjectList = (info: Array<any>) => {
+console.log('entra info');
+console.log(info);
 
+
+
+  return (
+    <>
+      {/* Encabezado de la tabla */}
+      <div style={{ display: 'flex', gap: '10px', fontWeight: 'bold', width: '100%' }}>
+        {Object.keys(info[0]).map((key) => (
+          <span key={key} style={{ width: '100px', textAlign: 'center' }}>{key}</span>
+        ))}
+      </div>
+      <br />
+  
+      {/* Filas de objetos */}
+      {info.map((obj: any, index: number) => (
+        <div key={index} style={{ display: 'flex', gap: '10px', width: '100%' }}>
+          {Object.keys(info[0]).map((key) => {
+            console.log('va a consultar formato de ');
+            console.log(obj[key]);
+  
+            var finalValue;
+            if (isJSON(obj[key] + '')) {
+              console.log('es json');
+  
+              finalValue = JSON.parse(obj[key]);
+            } else {
+              console.log('Es variable limpia');
+              if (typeof obj[key] === 'number') {
+                finalValue = obj[key] + ''
+              } else {
+                finalValue = obj[key]
+              }
+            }
+            return <span key={key} style={{ width: '100px', textAlign: 'center' }}>{identificateVar(finalValue, finalValue, <InfoIconTooltip info={finalValue}></InfoIconTooltip>, <InfoIconTooltip info={finalValue}></InfoIconTooltip>)}</span>
+          })}
+        </div>
+      ))}
+    </>
+  )
+}
 
 export const InfoIconTooltip = ({ info }: any) => {
   const [showTooltip, setShowTooltip] = useState(false);
@@ -78,44 +124,7 @@ export const InfoIconTooltip = ({ info }: any) => {
   const infoProcess = () => identificateVar(info, info,
     <>
       {identificateVar(info, false, true, false) ? (
-        isObject(info[0]) ? (
-          <>
-            {/* Encabezado de la tabla */}
-            <div style={{ display: 'flex', gap: '10px', fontWeight: 'bold', width: '100%' }}>
-              {Object.keys(info[0]).map((key) => (
-                <span key={key} style={{ width: '100px', textAlign: 'center' }}>{key}</span>
-              ))}
-            </div>
-            <br />
-
-            {/* Filas de objetos */}
-            {info.map((obj: any, index: number) => (
-              <div key={index} style={{ display: 'flex', gap: '10px', width: '100%' }}>
-                {Object.keys(info[0]).map((key) => {
-                  console.log('va a consultar formato de ');
-                  console.log(obj[key]);
-
-                  var finalValue;
-                  if (isJSON(obj[key] + '')) {
-                    console.log('es json');
-
-                    finalValue = JSON.parse(obj[key]);
-                  } else {
-                    console.log('Es variable limpia');
-                    if (typeof obj[key] === 'number') {
-                      finalValue = obj[key] + ''
-                    } else {
-                      finalValue = obj[key]
-                    }
-
-
-                  }
-                  return <span key={key} style={{ width: '100px', textAlign: 'center' }}>{identificateVar(finalValue, finalValue, <InfoIconTooltip info={finalValue}></InfoIconTooltip>, <InfoIconTooltip info={finalValue}></InfoIconTooltip>)}</span>
-                })}
-              </div>
-            ))}
-          </>
-        ) : (
+        isObject(info[0]) ? renderObjectList(info) : (
           // Muestra lista simple de strings si no es un array de objetos
           info.map((s: any, index: number) => <div key={index}>{s}</div>)
         )
@@ -123,11 +132,6 @@ export const InfoIconTooltip = ({ info }: any) => {
     </>,
     objetctToView(info)
   );
-
-
-
-
-
   return (
     <div
       className="info-icon-container"
