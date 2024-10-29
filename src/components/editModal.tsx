@@ -13,7 +13,6 @@ interface modalProps {
 const EditModal = (props: modalProps) => {
     const { doc, onClose, indexList, editDoc, asEdit = false, addDoc } = props;
     const [document, setDocument] = useState<any>();
-    const [objectPropieties, setObjectPropieties] = useState({})
 
     const submitEdit = () => {
         console.log(document.propierties); editDoc(document.id, document); onClose()
@@ -107,7 +106,7 @@ const EditModal = (props: modalProps) => {
                 console.log('indexes son');
                 console.log(Object.keys(finalValue));
                 render = <>
-                <div style={{backgroundColor: getRandomLightColor(), borderRadius: '5px', padding: '3px'}}>
+                <div style={{display: 'flex', alignItems: 'center', flexWrap: 'nowrap',flexFlow: 'column', backgroundColor: getRandomLightColor(), borderRadius: '5px', padding: '10px', margin: '5px'}}>
                     <label><strong>{i + ': '}</strong></label>
                     {objetcToForm(Object.keys(finalValue), finalValue, true,i, byArray)}
                 </div>
@@ -115,7 +114,7 @@ const EditModal = (props: modalProps) => {
 
             } else if (Array.isArray(jsonParse)) {
                 finalValue = jsonParse
-                render = isObject(finalValue[0]) ? (asEdit ? renderObjectList(finalValue) : <><strong>{i}</strong>{objetcToForm(Object.keys(finalValue[0]), finalValue, true, i, true)}</>) : (asEdit ?
+                render = isObject(finalValue[0]) ? (asEdit ? renderObjectList(finalValue, i) : <><strong>{i}</strong>{objetcToForm(Object.keys(finalValue[0]), finalValue, true, i, true)}</>) : (asEdit ?
                     <>
                         <strong> {'Lista de ' + i}</strong>
                         <ul>
@@ -128,7 +127,7 @@ const EditModal = (props: modalProps) => {
                         </ul>
                     </> : <label>
                         <div style={{ width: '10%' }}>{i}</div>
-                        <div style={{ width: '10%' }}> <input type="text" value={''}  onChange={(e) => changeAsArray(e, i)} /></div>
+                        <div style={{ width: '10%' }}> <input type="text" value={undefined}  onChange={(e) => changeAsArray(e, i)} /></div>
                     </label>
 
                 )
@@ -138,7 +137,7 @@ const EditModal = (props: modalProps) => {
                 console.log(finalValue);
                 render = <label>
                     <div style={{ width: '10%' }}>{i}</div>
-                    <div style={{ width: '10%' }}> <input type="text" value={document && asEdit ? finalValue ?? '' : undefined} onChange={(e) =>  isPrioperty && byArray ? changeAsObjectArray(e, propertyName!, i) :isPrioperty ? changeAsObject(e,propertyName!, i) : change(e, i)} /></div>
+                    <div style={{ width: '10%' }}> <input type="text" value={document && asEdit ? finalValue : undefined} onChange={(e) =>  isPrioperty && byArray ? changeAsObjectArray(e, propertyName!, i) :isPrioperty ? changeAsObject(e,propertyName!, i) : change(e, i)} /></div>
                 </label>
             }
 

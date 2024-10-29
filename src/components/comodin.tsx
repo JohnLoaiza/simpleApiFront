@@ -115,7 +115,7 @@ const EditModal = (props: modalProps) => {
 
             } else if (Array.isArray(jsonParse)) {
                 finalValue = jsonParse
-                render = isObject(finalValue[0]) ? (asEdit ? renderObjectList(finalValue) : <><strong>{i}</strong>{objetcToForm(Object.keys(finalValue[0]), finalValue, true, i, true)}</>) : (asEdit ?
+                render = isObject(finalValue[0]) ? (asEdit ? renderObjectList(finalValue, i) : <><strong>{i}</strong>{objetcToForm(Object.keys(finalValue[0]), finalValue, true, i, true)}</>) : (asEdit ?
                     <>
                         <strong> {'Lista de ' + i}</strong>
                         <ul>

@@ -74,7 +74,7 @@ export const objetctToView = (info: any) => Object.keys(info).map((k) => {
   );
 });
 
-export const renderObjectList = (info: Array<any>) => {
+export const renderObjectList = (info: Array<any>, title:  string) => {
 console.log('entra info');
 console.log(info);
 
@@ -82,6 +82,7 @@ console.log(info);
 
   return (
     <>
+    <strong style={{textAlign: 'center'}}>{title}</strong>
       {/* Encabezado de la tabla */}
       <div style={{ display: 'flex', gap: '10px', fontWeight: 'bold', width: '100%' }}>
         {Object.keys(info[0]).map((key) => (
@@ -124,7 +125,7 @@ export const InfoIconTooltip = ({ info }: any) => {
   const infoProcess = () => identificateVar(info, info,
     <>
       {identificateVar(info, false, true, false) ? (
-        isObject(info[0]) ? renderObjectList(info) : (
+        isObject(info[0]) ? renderObjectList(info, '') : (
           // Muestra lista simple de strings si no es un array de objetos
           info.map((s: any, index: number) => <div key={index}>{s}</div>)
         )
