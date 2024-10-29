@@ -20,19 +20,21 @@
   
   .info-tooltip {
     position: absolute;
-    top: 50%; /* Centrado verticalmente respecto al icono */
-    right: 125%; /* Posiciona el tooltip a la izquierda del icono */
-    transform: translateY(-50%); /* Alinea el tooltip verticalmente en el medio */
-    background-color: black;
-    color: rgb(116, 76, 76);
+    top: 10%; /* Más cercano al icono */
+    right: 100%; /* Más cercano al icono */
+    transform: translateY(-10%); /* Ajuste menor */
+    background-color: rgb(255, 255, 255);
+    color: rgb(68, 67, 67);
     padding: 5px 10px;
     border-radius: 4px;
     font-size: 12px;
-    white-space: nowrap;
+    white-space: normal;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     opacity: 0;
-    animation: fadeIn 0.3s forwards; /* Animación para suavizar la entrada */
-  }
+    animation: fadeIn 0.3s forwards;
+}
+
+  
   
   @keyframes fadeIn {
     from {
