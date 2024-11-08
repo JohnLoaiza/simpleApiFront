@@ -26,15 +26,21 @@ const Login: React.FC = () => {
             });
 
             setMessage(response.data.message);
-
-            // Navegación si la respuesta es exitosa
+                    console.log('al iniciar sesion la respuesta es ');
+                    console.log(response.data);
+                    
+                    
             if (response.data.success) {
-                localStorage.setItem('settings', JSON.stringify({
-                    sesion:true,
-                    userId: response.data.id
+                // Guardar la sesión en sessionStorage
+                sessionStorage.setItem('settings', JSON.stringify({
+                    sesion: true,
+                    userId: response.data.id,
+                    jwt: response.data.token // Guardar el JWT en sessionStorage
                 }));
-                navigate('/dashboard'); // Redirige a la ruta principal
-            } 
+            
+                // Redirigir a la ruta principal
+                navigate('/dashboard');
+            }
         } catch (err: any) {
             setError(err.response?.data?.message || err.message || 'Error desconocido');
         } finally {

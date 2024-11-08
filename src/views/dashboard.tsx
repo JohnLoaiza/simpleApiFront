@@ -19,7 +19,7 @@ export interface User {
 }
 
 const Dashboard: React.FC = () => {
-  const storage = localStorage.getItem('settings')
+  const storage = sessionStorage.getItem('settings')
   const navigate = useNavigate();
   const [user , setUser] = useState({
     roles: [],

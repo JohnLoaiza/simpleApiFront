@@ -358,6 +358,5 @@ h1 {
 }
 
 .info-icon-container {
-  position: relative; /* Posicionamiento relativo para el tooltip */
   display: inline-block; /* Mantiene el tamaño adecuado del ícono */
 }

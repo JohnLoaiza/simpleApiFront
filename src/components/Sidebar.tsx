@@ -12,10 +12,7 @@ interface SidebarProps {
 const adminModules = [
   'universidad',
   'users',
-  'aspecto_normativo',
-  'car_innovacion',
-  'practica_estrategia',
-  'enfoque'
+  'programas'
 ]
 
 const teacherModules = [
@@ -48,7 +45,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onSelectModule, userSettings }: Sideb
   }
 
   const closeSesion = () => {
-    localStorage.removeItem('settings');
+    sessionStorage.removeItem('settings');
    navigate('/login')
   }
 

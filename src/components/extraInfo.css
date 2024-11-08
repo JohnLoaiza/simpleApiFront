@@ -1,5 +1,4 @@
 .info-icon-container {
-    position: relative; /* Posicionamiento relativo para el tooltip */
     display: inline-block; /* Mantiene el tamaño adecuado del ícono */
   }
 
@@ -20,9 +19,8 @@
   
   .info-tooltip {
     position: absolute;
-    top: 10%; /* Más cercano al icono */
-    right: 100%; /* Más cercano al icono */
-    transform: translateY(-10%); /* Ajuste menor */
+    top: 100%; /* Más cercano al icono */
+    right: 50%; /* Más cercano al icono */
     background-color: rgb(255, 255, 255);
     color: rgb(68, 67, 67);
     padding: 5px 10px;
