@@ -65,7 +65,7 @@ const Table = (props: Props) => {
     
     console.log(finaList);
     setDataList(finaList)
-    setDataFormat(finaList)
+    setIndexList(indexList)
   }
 
   const deleteDoc = async (id: string) => {
@@ -133,7 +133,7 @@ const Table = (props: Props) => {
                     finalValue = doc.propierties[i];
                 
 
-                  return <td key={i}>{identificateVar(finalValue, finalValue, <InfoIconTooltip info={finalValue}></InfoIconTooltip>, <InfoIconTooltip info={finalValue}></InfoIconTooltip>)}</td>
+                  return <td key={i}>{identificateVar(finalValue, finalValue , <InfoIconTooltip info={finalValue}></InfoIconTooltip>, <InfoIconTooltip info={finalValue}></InfoIconTooltip>)}</td>
                 })}
                 <td>
                   <FaEdit onClick={() => setEditModal({ flag: true, doc: doc, asEdit: true, addDoc: addDoc, editDoc: editDoc, indexList: indexList })} style={{ cursor: 'pointer', marginRight: '10px' }} />
