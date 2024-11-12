@@ -1,8 +1,9 @@
 // components/ModuleContent.tsx
 import React from 'react';
 import Table from './table';
-import { dbName } from '../configs';
+import { dbName, sesionTime } from '../configs';
 import { User } from '../views/dashboard';
+import CountdownTimer from './viewSesionTime';
 
 interface ModuleContentProps {
     module: string;
@@ -28,12 +29,13 @@ const ModuleContent = ({ module, setEditModal, userSettings }: ModuleContentProp
     const renderModuleContent = () => {
         switch (module) {
             case 'Home':
-                return <div>Welcome to the Home module! Here you can see a dashboard overview. {userSettings.roles + ''}
+                return <div>Tus roles activos son
                 {userSettings.roles.map((r)=> <>
                 <div>{r} 
                     <div style={{backgroundColor: rolColor(r), height: '20px', width: '20px', borderRadius: '10px'}}></div>
                 </div>
                 </>) }
+                <CountdownTimer initialTime={sesionTime}></CountdownTimer>
                 </div>;
             default:
                 return <Table project={dbName} collection={module} setEditModal={setEditModal}></Table>;

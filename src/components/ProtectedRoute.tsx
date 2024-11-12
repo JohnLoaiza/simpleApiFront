@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
-import { apiRoute, dbName } from '../configs';
+import { apiRoute, dbName, sesionTime, setSesionTime } from '../configs';
 
 interface ProtectedRouteProps {
   element: React.ReactNode;
@@ -37,6 +37,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ element }) => {
         
         
         if (response.data.success) {
+            setSesionTime(response.data.timeRemaining);
           setIsValid(true);
         } else {
           setIsValid(false);

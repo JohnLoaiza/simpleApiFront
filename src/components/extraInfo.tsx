@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import './extraInfo.css'
+import { FaEdit, FaTrash } from "react-icons/fa";
 
 type MyType = string | object | any[];
 export const identificateVar = (myVariable: MyType, isString: any, isArray: any, isObject: any) => {
@@ -113,6 +114,8 @@ console.log(info);
             }
             return <span key={key} style={{ width: '100px', textAlign: 'center' }}>{identificateVar(finalValue, finalValue, <InfoIconTooltip info={finalValue}></InfoIconTooltip>, <InfoIconTooltip info={finalValue}></InfoIconTooltip>)}</span>
           })}
+           <FaEdit onClick={() => {}} style={{ cursor: 'pointer', marginRight: '10px' }} />
+           <FaTrash onClick={() =>{}} style={{ cursor: 'pointer', color: 'red' }} />
         </div>
       ))}
     </>
@@ -140,7 +143,11 @@ export const InfoIconTooltip = ({ info }: any) => {
       onMouseLeave={() => setShowTooltip(false)}
     >
       <span className="info-icon">i</span>
-      {showTooltip && <div className="info-tooltip">{infoProcess()}</div>}
+      {showTooltip &&
+      
+      <div className="info-tooltip">
+        
+        {infoProcess()}</div>}
     </div>
   );
 };
