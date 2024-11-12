@@ -20,6 +20,7 @@ const Table = (props: Props) => {
   const { project, collection, setEditModal } = props;
   const [indexList, setIndexList] = useState<string[]>([]);
   const [dataList, setDataList] = useState<any[]>([]);
+  const [dataFormat, setDataFormat] = useState<any[]>([])
 
   useEffect(() => {
     getData();
@@ -33,12 +34,39 @@ const Table = (props: Props) => {
 
     if (response) {
       const obj = response.data[0].propierties;
-      setIndexList(Object.keys(obj));
-      setDataList(response.data);
+    //  setIndexList(Object.keys(obj));
+      
+      
+    //  setDataList(response.data);
+    toDataFormat(response.data, Object.keys(obj))
     } else {
       return { success: false };
     }
   };
+
+  const toDataFormat = (dataResponse: any[], indexList: string[]) => {
+    var finaList: any[] = []
+    dataResponse.forEach((f: any) => {
+      var add: any = {}
+      indexList.forEach(i => {
+        var finalValue;
+        if (isJSON(f.propierties[i])) {
+          finalValue = JSON.parse(f.propierties[i]);
+        } else {
+          finalValue = f.propierties[i];
+        }
+        add[i] = finalValue
+      });
+      finaList.push({id: f.id, propierties: add})
+    })
+    console.log(dataResponse);
+    
+    console.log('final list es');
+    
+    console.log(finaList);
+    setDataList(finaList)
+    setDataFormat(finaList)
+  }
 
   const deleteDoc = async (id: string) => {
     const response = await axios.delete(`${apiRoute}/${project}/${collection}/${id}`).catch(() => {
@@ -79,7 +107,8 @@ const Table = (props: Props) => {
     <div className="table-container">
       <> {dataList.length > 0 ? <>
         <header className="header">
-          <h1 onClick={() => console.log(dataList)}>Proyecto: {project}</h1>
+          <h1 onClick={() => {console.log(dataList);
+          }}>Proyecto: {project}</h1>
           <h2>Colección: {collection}</h2>
         </header>
         <div className="action-icons">
@@ -100,11 +129,9 @@ const Table = (props: Props) => {
               <tr key={doc.id}>
                 {indexList.map((i) => {
                   var finalValue;
-                  if (isJSON(doc.propierties[i])) {
-                    finalValue = JSON.parse(doc.propierties[i]);
-                  } else {
+                 
                     finalValue = doc.propierties[i];
-                  }
+                
 
                   return <td key={i}>{identificateVar(finalValue, finalValue, <InfoIconTooltip info={finalValue}></InfoIconTooltip>, <InfoIconTooltip info={finalValue}></InfoIconTooltip>)}</td>
                 })}

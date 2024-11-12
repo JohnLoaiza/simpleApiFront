@@ -17,7 +17,9 @@ export const identificateVar = (myVariable: MyType, isString: any, isArray: any,
     console.log("Es un objeto:", myVariable);
     return isObject
   } else {
-    console.log("Tipo desconocido");
+    console.log("Tipo desconocidoo");
+    console.log(myVariable);
+    
     return false;
   }
 }
