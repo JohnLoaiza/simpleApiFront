@@ -21,6 +21,10 @@ const EditModal = (props: modalProps) => {
 
     const submitEdit = () => {
         var collectionUpdate = doc.propierties
+        console.log('map lis es');
+        console.log(mapList);
+        
+        
         mapList.forEach(c => {
             console.log('collection viene ');console.log(collectionUpdate);
             

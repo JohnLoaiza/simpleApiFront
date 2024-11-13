@@ -124,7 +124,7 @@ console.log(info);
                 finalValue = obj[key]
               }
             }
-            return <span key={key} style={{ width: '100px', textAlign: 'center' }}>{identificateVar(finalValue, finalValue, <InfoIconTooltip editDoc={editDoc} doc={doc} setEditModal={setEditModal} mapList={[...mapList, [key, index]]} info={finalValue}></InfoIconTooltip>, <InfoIconTooltip editDoc={editDoc} doc={doc} setEditModal={setEditModal} mapList={[...mapList, key]} info={finalValue}></InfoIconTooltip>)}</span>
+            return <span key={key} style={{ width: '100px', textAlign: 'center' }}>{identificateVar(finalValue, finalValue, <InfoIconTooltip editDoc={editDoc} doc={doc} setEditModal={setEditModal} mapList={[...mapList, [key, index]]} info={finalValue}></InfoIconTooltip>, <InfoIconTooltip editDoc={editDoc} doc={doc} setEditModal={setEditModal} mapList={[...mapList, [key, index]]} info={finalValue}></InfoIconTooltip>)}</span>
           })}
            <FaEdit onClick={() => {console.log(obj); console.log(Object.keys(info[0]));
            
