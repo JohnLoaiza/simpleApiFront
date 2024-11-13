@@ -113,7 +113,7 @@ const Table = (props: Props) => {
         </header>
         <div className="action-icons">
           <FaSync onClick={async () => await getData()} style={{ cursor: 'pointer', marginRight: '10px' }} title="Reload Data" />
-          <FaPlus onClick={() => setEditModal({ flag: true, doc: dataList[0], asEdit: false, addDoc: addDoc, editDoc: editDoc, indexList: indexList })} style={{ cursor: 'pointer', marginRight: '10px' }} title="Add New" />
+          <FaPlus onClick={() => setEditModal({ flag: true, doc: dataList[0], obj:  dataList[0].propierties, mapList: [], asEdit: false, addDoc: addDoc, editDoc: editDoc, indexList: indexList })} style={{ cursor: 'pointer', marginRight: '10px' }} title="Add New" />
         </div>
         <table className="styled-table">
           <thead>
@@ -125,7 +125,7 @@ const Table = (props: Props) => {
             </tr>
           </thead>
           <tbody>
-            {dataList.map((doc) => (
+            {dataList.map((doc, index) => (
               <tr key={doc.id}>
                 {indexList.map((i) => {
                   var finalValue;
@@ -133,10 +133,10 @@ const Table = (props: Props) => {
                     finalValue = doc.propierties[i];
                 
 
-                  return <td key={i}>{identificateVar(finalValue, finalValue , <InfoIconTooltip mapList={[i]} info={finalValue}></InfoIconTooltip>, <InfoIconTooltip mapList={[i]} info={finalValue}></InfoIconTooltip>)}</td>
+                  return <td key={i}>{identificateVar(finalValue, finalValue , <InfoIconTooltip editDoc={editDoc} doc={doc} setEditModal={setEditModal} mapList={[i]} info={finalValue}></InfoIconTooltip>, <InfoIconTooltip doc={doc} setEditModal={setEditModal} mapList={[i]} info={finalValue}></InfoIconTooltip>)}</td>
                 })}
                 <td>
-                  <FaEdit onClick={() => setEditModal({ flag: true, doc: doc, asEdit: true, addDoc: addDoc, editDoc: editDoc, indexList: indexList })} style={{ cursor: 'pointer', marginRight: '10px' }} />
+                  <FaEdit onClick={() => setEditModal({indexEdit: index, flag: true, obj: doc.propierties, mapList: [], doc: doc, asEdit: true, addDoc: addDoc, editDoc: editDoc, indexList: indexList })} style={{ cursor: 'pointer', marginRight: '10px' }} />
                   <FaTrash onClick={() => deleteDoc(doc.id)} style={{ cursor: 'pointer', color: 'red' }} />
                 </td>
               </tr>

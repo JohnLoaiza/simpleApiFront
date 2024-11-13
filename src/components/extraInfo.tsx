@@ -77,7 +77,7 @@ export const objetctToView = (info: any) => Object.keys(info).map((k) => {
   );
 });
 
-export const renderObjectList = (info: Array<any>, mapList: string[], title:  string) => {
+export const renderObjectList = (info: Array<any>, mapList: string[], title:  string, setEditModal: any, doc: any, editDoc: any) => {
 console.log('entra info');
 console.log(info);
 
@@ -114,23 +114,25 @@ console.log(info);
                 finalValue = obj[key]
               }
             }
-            return <span key={key} style={{ width: '100px', textAlign: 'center' }}>{identificateVar(finalValue, finalValue, <InfoIconTooltip mapList={[...mapList, key]} info={finalValue}></InfoIconTooltip>, <InfoIconTooltip mapList={[...mapList, key]} info={finalValue}></InfoIconTooltip>)}</span>
+            return <span key={key} style={{ width: '100px', textAlign: 'center' }}>{identificateVar(finalValue, finalValue, <InfoIconTooltip doc={doc} setEditModal={setEditModal} mapList={[...mapList, key]} info={finalValue}></InfoIconTooltip>, <InfoIconTooltip doc={doc} setEditModal={setEditModal} mapList={[...mapList, key]} info={finalValue}></InfoIconTooltip>)}</span>
           })}
-           <FaEdit onClick={() => {}} style={{ cursor: 'pointer', marginRight: '10px' }} />
-           <FaTrash onClick={() =>{}} style={{ cursor: 'pointer', color: 'red' }} />
+           <FaEdit onClick={() => {console.log(obj); console.log(Object.keys(info[0]));
+           
+            setEditModal({ flag: true, mapList: mapList, indexEdit: index, doc: doc, obj: obj, asEdit: true, addDoc: () => {}, editDoc:  editDoc, indexList: Object.keys(info[0]) })}} style={{ cursor: 'pointer', marginRight: '10px' }} />
+           <FaTrash onClick={() => setEditModal({ flag: true, doc: obj, asEdit: true, addDoc:  () => {}, editDoc:  () => {}, indexList: Object.keys(info[0]) })} style={{ cursor: 'pointer', color: 'red' }} />
         </div>
       ))}
     </>
   )
 }
 
-export const InfoIconTooltip = ({ info, mapList = [] }: any) => {
+export const InfoIconTooltip = ({ info, mapList = [], setEditModal, doc, editDoc }: any) => {
   const [showTooltip, setShowTooltip] = useState(false);
 
   const infoProcess = () => identificateVar(info, info,
     <>
       {identificateVar(info, false, true, false) ? (
-        isObject(info[0]) ? renderObjectList(info, mapList, '') : (
+        isObject(info[0]) ? renderObjectList(info, mapList, '', setEditModal, doc, editDoc) : (
           // Muestra lista simple de strings si no es un array de objetos
           info.map((s: any, index: number) => <div key={index}>{s}</div>)
         )

@@ -33,7 +33,7 @@ const Dashboard: React.FC = () => {
 
   const [selectedModule, setSelectedModule] = useState<string>('Home');
   const [loading, setLoading] = useState(false)
-  const [editModal, setEditModal] = useState({ flag: false, doc: undefined, asEdit:false, addDoc: () => {}, editDoc: () => {}, indexList: [] });
+  const [editModal, setEditModal] = useState({ flag: false, obj: undefined, indexEdit: 0, mapList: [], doc: undefined, asEdit:false, addDoc: () => {}, editDoc: () => {}, indexList: [] });
 
 
   
@@ -87,7 +87,7 @@ const getDataByUserId = async () => {
         </div>}
       </div>
       {editModal.flag ? (
-        <EditModal addDoc={editModal.addDoc} asEdit={editModal.asEdit} editDoc={editModal.editDoc} indexList={editModal.indexList} doc={editModal.doc} onClose={() => setEditModal({ flag: false, doc: undefined, asEdit:false, addDoc: () => {}, editDoc: () => {}, indexList: [] })}></EditModal>
+        <EditModal indexEdit={editModal.indexEdit} addDoc={editModal.addDoc} asEdit={editModal.asEdit} editDoc={editModal.editDoc} indexList={editModal.indexList} doc={editModal.doc} onClose={() => setEditModal({ obj: undefined, indexEdit:0, mapList: [], flag: false, doc: undefined, asEdit: false, addDoc: () => { }, editDoc: () => { }, indexList: [] })} obj={editModal.obj} mapList={editModal.mapList}></EditModal>
       ) : (
         <></>
       )}
