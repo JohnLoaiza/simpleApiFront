@@ -77,7 +77,7 @@ export const objetctToView = (info: any) => Object.keys(info).map((k) => {
   );
 });
 
-export const renderObjectList = (info: Array<any>, title:  string) => {
+export const renderObjectList = (info: Array<any>, mapList: string[], title:  string) => {
 console.log('entra info');
 console.log(info);
 
@@ -114,7 +114,7 @@ console.log(info);
                 finalValue = obj[key]
               }
             }
-            return <span key={key} style={{ width: '100px', textAlign: 'center' }}>{identificateVar(finalValue, finalValue, <InfoIconTooltip info={finalValue}></InfoIconTooltip>, <InfoIconTooltip info={finalValue}></InfoIconTooltip>)}</span>
+            return <span key={key} style={{ width: '100px', textAlign: 'center' }}>{identificateVar(finalValue, finalValue, <InfoIconTooltip mapList={[...mapList, key]} info={finalValue}></InfoIconTooltip>, <InfoIconTooltip mapList={[...mapList, key]} info={finalValue}></InfoIconTooltip>)}</span>
           })}
            <FaEdit onClick={() => {}} style={{ cursor: 'pointer', marginRight: '10px' }} />
            <FaTrash onClick={() =>{}} style={{ cursor: 'pointer', color: 'red' }} />
@@ -124,13 +124,13 @@ console.log(info);
   )
 }
 
-export const InfoIconTooltip = ({ info }: any) => {
+export const InfoIconTooltip = ({ info, mapList = [] }: any) => {
   const [showTooltip, setShowTooltip] = useState(false);
 
   const infoProcess = () => identificateVar(info, info,
     <>
       {identificateVar(info, false, true, false) ? (
-        isObject(info[0]) ? renderObjectList(info, '') : (
+        isObject(info[0]) ? renderObjectList(info, mapList, '') : (
           // Muestra lista simple de strings si no es un array de objetos
           info.map((s: any, index: number) => <div key={index}>{s}</div>)
         )
@@ -148,7 +148,7 @@ export const InfoIconTooltip = ({ info }: any) => {
       {showTooltip &&
       
       <div className="info-tooltip">
-        
+        {mapList.toString()}
         {infoProcess()}</div>}
     </div>
   );
