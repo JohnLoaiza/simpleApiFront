@@ -136,7 +136,7 @@ const Table = (props: Props) => {
                   return <td key={i}>{identificateVar(finalValue, finalValue , <InfoIconTooltip editDoc={editDoc} doc={doc} setEditModal={setEditModal} mapList={[i]} info={finalValue}></InfoIconTooltip>, <InfoIconTooltip doc={doc} setEditModal={setEditModal} mapList={[i]} info={finalValue}></InfoIconTooltip>)}</td>
                 })}
                 <td>
-                  <FaEdit onClick={() => setEditModal({indexEdit: index, flag: true, obj: doc.propierties, mapList: [], doc: doc, asEdit: true, addDoc: addDoc, editDoc: editDoc, indexList: indexList })} style={{ cursor: 'pointer', marginRight: '10px' }} />
+                  <FaEdit onClick={() => setEditModal({editAs: 'objectList', indexEdit: index, flag: true, obj: doc.propierties, mapList: [], doc: doc, asEdit: true, addDoc: addDoc, editDoc: editDoc, indexList: indexList })} style={{ cursor: 'pointer', marginRight: '10px' }} />
                   <FaTrash onClick={() => deleteDoc(doc.id)} style={{ cursor: 'pointer', color: 'red' }} />
                 </td>
               </tr>
