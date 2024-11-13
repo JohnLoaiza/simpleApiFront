@@ -46,36 +46,46 @@ export function isObject(value: any): value is object {
   return typeof value === "object" && value !== null && !Array.isArray(value);
 }
 
-export const objetctToView = (info: any) => Object.keys(info).map((k) => {
-  let finalValue;
+export const ObjetctToView = ({info, setEditModal, mapList, doc, editDoc}: any) => {
 
-  if (isJSON(info[k] + '')) {
-    console.log('Es JSON');
-    finalValue = JSON.parse(info[k]);
-  } else {
-    console.log('Es variable limpia');
-    finalValue = typeof info[k] === 'number' ? info[k] + '' : info[k];
+  return <>
+   <FaEdit onClick={() => {
+           
+           setEditModal({editAs: 'object', flag: true, mapList: mapList, indexEdit: 0, doc: doc, obj: info, asEdit: true, addDoc: () => {}, editDoc:  editDoc, indexList: Object.keys(info) })}} style={{ cursor: 'pointer', marginRight: '10px' }} />
+  {
+    Object.keys(info).map((k) => {
+      let finalValue;
+    
+      if (isJSON(info[k] + '')) {
+        console.log('Es JSON');
+        finalValue = JSON.parse(info[k]);
+      } else {
+        console.log('Es variable limpia');
+        finalValue = typeof info[k] === 'number' ? info[k] + '' : info[k];
+      }
+    
+      // Aquí verificamos el tipo de finalValue para ver si necesita el InfoIconTooltip
+      const renderValue = identificateVar(
+        finalValue,
+        // Si es un string o número simple
+        <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+          {finalValue}
+        </span>,
+        // Si es un array o un objeto
+        <InfoIconTooltip info={finalValue} />,
+        <InfoIconTooltip info={finalValue} />
+      );
+    
+      return (
+        <div key={k} style={{ display: 'flex', alignItems: 'center' }}>
+          <strong>{k}:</strong>
+          <span style={{ marginLeft: '5px' }}>{renderValue}</span>
+        </div>
+      );
+    })
   }
-
-  // Aquí verificamos el tipo de finalValue para ver si necesita el InfoIconTooltip
-  const renderValue = identificateVar(
-    finalValue,
-    // Si es un string o número simple
-    <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-      {finalValue}
-    </span>,
-    // Si es un array o un objeto
-    <InfoIconTooltip info={finalValue} />,
-    <InfoIconTooltip info={finalValue} />
-  );
-
-  return (
-    <div key={k} style={{ display: 'flex', alignItems: 'center' }}>
-      <strong>{k}:</strong>
-      <span style={{ marginLeft: '5px' }}>{renderValue}</span>
-    </div>
-  );
-});
+  </>
+};
 
 export const renderObjectList = (info: Array<any>, mapList: string[], title:  string, setEditModal: any, doc: any, editDoc: any) => {
 console.log('entra info');
@@ -114,7 +124,7 @@ console.log(info);
                 finalValue = obj[key]
               }
             }
-            return <span key={key} style={{ width: '100px', textAlign: 'center' }}>{identificateVar(finalValue, finalValue, <InfoIconTooltip doc={doc} setEditModal={setEditModal} mapList={[...mapList, key]} info={finalValue}></InfoIconTooltip>, <InfoIconTooltip doc={doc} setEditModal={setEditModal} mapList={[...mapList, key]} info={finalValue}></InfoIconTooltip>)}</span>
+            return <span key={key} style={{ width: '100px', textAlign: 'center' }}>{identificateVar(finalValue, finalValue, <InfoIconTooltip editDoc={editDoc} doc={doc} setEditModal={setEditModal} mapList={[...mapList, [key, index]]} info={finalValue}></InfoIconTooltip>, <InfoIconTooltip editDoc={editDoc} doc={doc} setEditModal={setEditModal} mapList={[...mapList, key]} info={finalValue}></InfoIconTooltip>)}</span>
           })}
            <FaEdit onClick={() => {console.log(obj); console.log(Object.keys(info[0]));
            
@@ -142,7 +152,7 @@ export const InfoIconTooltip = ({ info, mapList = [], setEditModal, doc, editDoc
         )
       ) : ''}
     </>,
-    objetctToView(info)
+   <ObjetctToView info={info} setEditModal={setEditModal} mapList={mapList} doc={doc} editDoc={editDoc}></ObjetctToView>
   );
   return (
     <div

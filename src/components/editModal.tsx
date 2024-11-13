@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { identificateVar } from "./extraInfo";
 
 interface modalProps {
     doc: any;
@@ -21,7 +22,22 @@ const EditModal = (props: modalProps) => {
     const submitEdit = () => {
         var collectionUpdate = doc.propierties
         mapList.forEach(c => {
-            collectionUpdate = collectionUpdate[c]
+            console.log('collection viene ');console.log(collectionUpdate);
+            
+            console.log('y va a entrar a ' + c);
+            
+            const flag = identificateVar(c, 'string', 'subCollection', 'imposible') 
+
+            if (flag === 'string') {
+                collectionUpdate = collectionUpdate[c]
+            } else {
+                collectionUpdate = collectionUpdate[c[1]][c[0]]
+            }
+
+            console.log('entro y quedo');
+            console.log(collectionUpdate);
+            
+            
         })
         if (editAs === 'objectList') {
            
@@ -40,6 +56,14 @@ const EditModal = (props: modalProps) => {
             console.log(collectionUpdate);
             
             
+        } else if (editAs === 'object') {
+            console.log('finalmente va a actualizar el objeto');
+            console.log(collectionUpdate);
+            indexList.forEach((d) => {
+                collectionUpdate[d] = objeto[d]
+            })
+            console.log('collectionUpdate');
+            console.log(collectionUpdate);
         }
         console.log('actualizó');
         console.log('y el propierties es');
