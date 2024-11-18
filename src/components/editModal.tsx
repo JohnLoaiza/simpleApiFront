@@ -79,15 +79,79 @@ const EditModal = (props: modalProps) => {
         editDoc(doc.id, doc); onClose()
     }
     const submitAdd = () => {
+console.log('add');
+        var cloneDoc = structuredClone(doc)
+        var collectionUpdate = cloneDoc.propierties
+        console.log('map lis es');
+        console.log(mapList);
+
+
+        mapList.forEach(c => {
+            console.log('collection viene '); console.log(collectionUpdate);
+
+            console.log('y va a entrar a ' + c);
+
+            const flag = identificateVar(c, 'string', 'subCollection', 'imposible')
+
+            if (flag === 'string') {
+                collectionUpdate = collectionUpdate[c]
+            } else {
+                collectionUpdate = collectionUpdate[c[1]][c[0]]
+            }
+
+            console.log('entro y quedo');
+            console.log(collectionUpdate);
+
+
+        })
         indexList.forEach((i) =>{
             const identificate = identificateVar(obj[i], '', 'array', 'object');
             if (identificate === 'array') {
-                objeto.propierties[i] = [];
+                const arrayIdentificate = identificateVar(obj[i][0], 'string', 'array', 'object')
+                if (arrayIdentificate === 'object') {
+                    objeto.propierties[i] = [obj[i][0]];
+                } else if (arrayIdentificate === '') {
+                    objeto.propierties[i] = [];
+
+                }
+                
             } else if (identificate === 'object') {
                 objeto.propierties[i] = obj[i]
             }
         })
-        console.log(objeto.propierties); addDoc(objeto); onClose()
+
+        if (editAs === 'objectList') {
+
+            console.log('finalmente va a agregar en');
+            console.log(collectionUpdate);
+
+            collectionUpdate.push(objeto.propierties)
+
+        } else if (editAs === 'simpleList') {
+            console.log('finalmente va a agregar en la lista');
+            console.log(collectionUpdate);
+          
+            console.log('collectionUpdate');
+            console.log(collectionUpdate);
+
+
+        } 
+        console.log('agregó');
+        console.log('y el propierties es');
+        console.log(cloneDoc.propierties);
+
+       
+        console.log(objeto.propierties); 
+
+        if (mapList.length === 0) {
+            console.log('inserta nuevo documento principal');
+            addDoc(objeto);
+        } else {
+console.log('es subcolección entonces actualizará el documento principal con id ' + doc.id);
+editDoc(doc.id, cloneDoc);
+        }
+        
+         onClose()
     }
 
     const change = (e: React.ChangeEvent<HTMLInputElement>, i: string) => {

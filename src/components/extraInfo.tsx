@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import './extraInfo.css'
-import { FaEdit, FaTrash } from "react-icons/fa";
+import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
 
 type MyType = string | object | any[];
 export const identificateVar = (myVariable: MyType, isString: any, isArray: any, isObject: any) => {
@@ -87,7 +87,7 @@ export const ObjetctToView = ({info, setEditModal, mapList, doc, editDoc}: any) 
   </>
 };
 
-export const renderObjectList = (info: Array<any>, mapList: string[], title:  string, setEditModal: any, doc: any, editDoc: any) => {
+export const renderObjectList = (info: Array<any>, mapList: string[], title:  string, setEditModal: any, doc: any, editDoc: any, addDoc: any) => {
 console.log('entra info');
 console.log(info);
 
@@ -96,6 +96,8 @@ console.log(info);
   return (
     <>
     <strong style={{textAlign: 'center'}}>{title}</strong>
+    <FaPlus onClick={() => setEditModal({editAs: identificateVar(info[0], 'simpleList', '', 'objectList') , flag: true, doc: doc, obj:  info[0], mapList: mapList, asEdit: false, addDoc: addDoc, editDoc: editDoc, indexList: Object.keys(info[0]) })} style={{ cursor: 'pointer', marginRight: '10px' }} title="Add New" />
+
       {/* Encabezado de la tabla */}
       <div style={{ display: 'flex', gap: '10px', fontWeight: 'bold', width: '100%' }}>
         {Object.keys(info[0]).map((key) => (
@@ -137,13 +139,13 @@ console.log(info);
   )
 }
 
-export const InfoIconTooltip = ({ info, mapList = [], setEditModal, doc, editDoc }: any) => {
+export const InfoIconTooltip = ({ info, mapList = [], setEditModal, doc, editDoc, addDoc }: any) => {
   const [showTooltip, setShowTooltip] = useState(false);
 
   const infoProcess = () => identificateVar(info, info,
     <>
       {identificateVar(info, false, true, false) ? (
-        isObject(info[0]) ? renderObjectList(info, mapList, '', setEditModal, doc, editDoc) : (
+        isObject(info[0]) ? renderObjectList(info, mapList, '', setEditModal, doc, editDoc, addDoc) : (
           // Muestra lista simple de strings si no es un array de objetos
         <> <FaEdit onClick={() => {
           setEditModal({editAs: 'simpleList', flag: true, mapList: mapList, indexEdit: 0, doc: doc, obj: structuredClone(info), asEdit: true, addDoc: () => {}, editDoc:  editDoc, indexList: [] })}} style={{ cursor: 'pointer', marginRight: '10px' }} />

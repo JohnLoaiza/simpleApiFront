@@ -133,7 +133,7 @@ const Table = (props: Props) => {
                     finalValue = doc.propierties[i];
                 
 
-                  return <td key={i}>{identificateVar(finalValue, finalValue , <InfoIconTooltip editDoc={editDoc} doc={doc} setEditModal={setEditModal} mapList={[i]} info={finalValue}></InfoIconTooltip>, <InfoIconTooltip doc={doc} setEditModal={setEditModal} mapList={[i]} info={finalValue}></InfoIconTooltip>)}</td>
+                  return <td key={i}>{identificateVar(finalValue, finalValue , <InfoIconTooltip addDoc={addDoc} editDoc={editDoc} doc={doc} setEditModal={setEditModal} mapList={[i]} info={finalValue}></InfoIconTooltip>, <InfoIconTooltip addDoc={addDoc} doc={doc} setEditModal={setEditModal} mapList={[i]} info={finalValue}></InfoIconTooltip>)}</td>
                 })}
                 <td>
                   <FaEdit onClick={() => setEditModal({editAs: 'objectList', indexEdit: index, flag: true, obj: doc.propierties, mapList: [], doc: doc, asEdit: true, addDoc: addDoc, editDoc: editDoc, indexList: indexList })} style={{ cursor: 'pointer', marginRight: '10px' }} />
