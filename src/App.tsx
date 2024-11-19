@@ -4,7 +4,7 @@ import Dashboard from './views/dashboard';
 import { OpenTable } from './components/openTableByUrl';
 import Login from './views/login';
 import Register from './views/register';
-import ProtectedRoute from './components/protectedRoute'; // Importa el componente ProtectedRoute
+import ProtectedRoute from './components/ProtectedRoute';
 
 const App: React.FC = () => {
   return (
@@ -18,7 +18,7 @@ const App: React.FC = () => {
         
         {/* Ruta protegida para el dashboard */}
         <Route
-          path="/dashboard"
+          path="/dashboard/:module"
           element={<ProtectedRoute element={<Dashboard />} />}
         />
 

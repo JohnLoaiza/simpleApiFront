@@ -15,13 +15,14 @@ export const OpenTable: React.FC = () => {
         {editModal.flag ? (
             <EditModal
                 addDoc={editModal.addDoc}
+                
                 asEdit={editModal.asEdit}
                 editDoc={editModal.editDoc}
                 indexList={editModal.indexList}
                 doc={editModal.doc}
-                onClose={() => setEditModal({ flag: false, doc: undefined, asEdit: false, addDoc: () => { }, editDoc: () => { }, indexList: [] })}>
-                    
-                </EditModal>
+                onClose={() => setEditModal({ flag: false, doc: undefined, asEdit: false, addDoc: () => { }, editDoc: () => { }, indexList: [] })} obj={undefined} mapList={[]} indexEdit={0} editAs={""}>
+
+            </EditModal>
         ) : (
             <></>
         )}</>

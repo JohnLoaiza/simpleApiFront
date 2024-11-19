@@ -4,7 +4,7 @@ import Sidebar from '../components/Sidebar';
 import ModuleContent from '../components/ModuleContent';
 import styles from './styles.module.css';
 import EditModal from '../components/editModal';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { apiRoute, dbName } from '../configs';
 
@@ -19,6 +19,8 @@ export interface User {
 }
 
 const Dashboard: React.FC = () => {
+  const { module } = useParams<{ module: string}>();
+
   const storage = sessionStorage.getItem('settings')
   const navigate = useNavigate();
   const [user , setUser] = useState({
@@ -31,7 +33,7 @@ const Dashboard: React.FC = () => {
     userId: ''
 } ;
 
-  const [selectedModule, setSelectedModule] = useState<string>('Home');
+  const [selectedModule, setSelectedModule] = useState<string>(module ?? 'home');
   const [loading, setLoading] = useState(false)
   const [editModal, setEditModal] = useState({editAs: '', flag: false, obj: undefined, indexEdit: 0, mapList: [], doc: undefined, asEdit:false, addDoc: () => {}, editDoc: () => {}, indexList: [] });
 
@@ -39,6 +41,7 @@ const Dashboard: React.FC = () => {
   
 
   const handleChange = (module: string) => {
+    navigate('/dashboard/'+module)
     setLoading(true)
     setTimeout(() => {
       setSelectedModule(module)

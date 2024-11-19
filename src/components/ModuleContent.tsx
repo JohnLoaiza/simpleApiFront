@@ -28,7 +28,7 @@ const ModuleContent = ({ module, setEditModal, userSettings }: ModuleContentProp
 
     const renderModuleContent = () => {
         switch (module) {
-            case 'Home':
+            case 'home':
                 return <div>Tus roles activos son
                 {userSettings.roles.map((r)=> <>
                 <div>{r} 
