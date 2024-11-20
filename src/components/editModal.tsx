@@ -130,7 +130,7 @@ console.log('add');
         } else if (editAs === 'simpleList') {
             console.log('finalmente va a agregar en la lista');
             console.log(collectionUpdate);
-          
+            collectionUpdate.push(objeto)
             console.log('collectionUpdate');
             console.log(collectionUpdate);
 
@@ -145,10 +145,10 @@ console.log('add');
 
         if (mapList.length === 0) {
             console.log('inserta nuevo documento principal');
-            addDoc(objeto);
+           addDoc(objeto);
         } else {
 console.log('es subcolección entonces actualizará el documento principal con id ' + doc.id);
-editDoc(doc.id, cloneDoc);
+ editDoc(doc.id, cloneDoc);
         }
         
          onClose()
@@ -190,7 +190,7 @@ editDoc(doc.id, cloneDoc);
         >
             <div className="modal-content">
                 {editAs == 'simpleList' ? <>
-                    <SimpleTable edit={edit} setEdit={setEdit} setObject={setObject} title={mapList[mapList.length - 1]} obj={objeto ?? []}></SimpleTable>
+                    <SimpleTable asEdit={asEdit} edit={edit} setEdit={setEdit} setObject={setObject} title={mapList[mapList.length - 1]} obj={objeto ?? []}></SimpleTable>
                     {modalButtons()}
                 </> : <>
                     <h2>{mapList}</h2>
@@ -208,19 +208,22 @@ editDoc(doc.id, cloneDoc);
     );
 };
 
-const SimpleTable = ({ obj, title, setObject, edit, setEdit }: any) => {
+const SimpleTable = ({ obj, title, setObject, edit, setEdit, asEdit }: any) => {
     console.log('lista simple es');
     console.log(obj);
 
 
     return <>
         <h2>{title}</h2>
-        {obj.map((i: string, index: number) => <label>
+        { asEdit ? obj.map((i: string, index: number) => <label>
             <div style={{ width: '10%' }}> <input type="text" value={!edit ? obj[index] : undefined} onChange={(e) => {
                 obj[index] = e.target.value; setEdit(true); setObject(obj); console.log('actualiza'); console.log(obj);
                 ;
             }} /></div>
-        </label>)}
+        </label>) : <><div style={{ width: '10%' }}> <input type="text" value={undefined} onChange={(e) => {
+                 setObject(e.target.value); 
+                ;
+            }} /></div></>}
     </>
 }
 

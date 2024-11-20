@@ -139,6 +139,15 @@ console.log(info);
   )
 }
 
+function simpleList(setEditModal: any, mapList: any, doc: any, info: any, editDoc: any, addDoc: any) {
+  return <> <FaEdit onClick={() => {
+    setEditModal({ editAs: 'simpleList', flag: true, mapList: mapList, indexEdit: 0, doc: doc, obj: structuredClone(info), asEdit: true, addDoc: () => { }, editDoc: editDoc, indexList: [] });
+  } } style={{ cursor: 'pointer', marginRight: '10px' }} />
+    {info.map((s: any, index: number) => <div key={index}>{s}</div>)}
+    <FaPlus onClick={() => setEditModal({ editAs: 'simpleList', flag: true, doc: doc, obj: structuredClone(info), mapList: mapList, asEdit: false, addDoc: addDoc, editDoc: editDoc, indexList: [] })} style={{ cursor: 'pointer', marginRight: '10px' }} title="Add New" />
+  </>;
+}
+
 export const InfoIconTooltip = ({ info, mapList = [], setEditModal, doc, editDoc, addDoc }: any) => {
   const [showTooltip, setShowTooltip] = useState(false);
 
@@ -147,10 +156,7 @@ export const InfoIconTooltip = ({ info, mapList = [], setEditModal, doc, editDoc
       {identificateVar(info, false, true, false) ? (
         isObject(info[0]) ? renderObjectList(info, mapList, '', setEditModal, doc, editDoc, addDoc) : (
           // Muestra lista simple de strings si no es un array de objetos
-        <> <FaEdit onClick={() => {
-          setEditModal({editAs: 'simpleList', flag: true, mapList: mapList, indexEdit: 0, doc: doc, obj: structuredClone(info), asEdit: true, addDoc: () => {}, editDoc:  editDoc, indexList: [] })}} style={{ cursor: 'pointer', marginRight: '10px' }} />
-          {  info.map((s: any, index: number) => <div key={index}>{s}</div>)}
-          </>  
+        simpleList(setEditModal, mapList, doc, info, editDoc, addDoc)  
         
         )
       ) : ''}
@@ -174,3 +180,5 @@ export const InfoIconTooltip = ({ info, mapList = [], setEditModal, doc, editDoc
 };
 
 export default InfoIconTooltip;
+
+
