@@ -21,6 +21,10 @@ const App: React.FC = () => {
           path="/dashboard/:module"
           element={<ProtectedRoute element={<Dashboard />} />}
         />
+         <Route
+          path="/dashboard"
+          element={<ProtectedRoute element={<Dashboard />} />}
+        />
 
         {/* Rutas públicas */}
         <Route path="/login" element={<Login />} />

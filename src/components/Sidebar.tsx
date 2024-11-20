@@ -12,7 +12,8 @@ interface SidebarProps {
 const adminModules = [
   'universidad',
   'users',
-  'programas'
+  'programas',
+  'rutas'
 ]
 
 const teacherModules = [
