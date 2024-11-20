@@ -9,26 +9,30 @@ interface SidebarProps {
   userSettings: User
 }
 
-const adminModules = [
+var adminModules = [
   'universidad',
   'users',
   'programas',
   'rutas'
 ]
 
-const teacherModules = [
+export const setAdminModules = (list : string[]) => adminModules = list;
+
+var teacherModules = [
   'Cursos',
   'Estudiantes',
   'Asignaturas',
   'Notas',
   'Evaluaciones',
 ]
+export const setTeacherModules= (list : string[]) => teacherModules = list;
 
-const studentModules = [
+var studentModules = [
   'Mis cursos',
   'Liquidación de matricula',
   'Horario'
 ]
+export const setStudentModules= (list : string[]) => studentModules = list;
 
 const Sidebar: React.FC<SidebarProps> = ({ onSelectModule, userSettings }: SidebarProps) => {
   const navigate = useNavigate()
