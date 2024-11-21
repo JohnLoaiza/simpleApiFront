@@ -155,7 +155,10 @@ console.log('es subcolección entonces actualizará el documento principal con i
     }
 
     const change = (e: React.ChangeEvent<HTMLInputElement>, i: string) => {
-        objeto.propierties[i] = e.target.value;
+        console.log('editando');
+        console.log(objeto);
+        
+        objeto[i] = e.target.value;
         setObject(objeto);
         setEdit(true)
     }
@@ -194,7 +197,7 @@ console.log('es subcolección entonces actualizará el documento principal con i
                     {modalButtons()}
                 </> : <>
                     <h2>{mapList}</h2>
-                    {indexList.map((i) => {
+                    {objeto && indexList.map((i) => {
                         const render = identificateVar(asEdit? objeto[i] : obj[i], true, false, false);
                        return render ? <label>
                         <div style={{ width: '10%' }}>{i}</div>
