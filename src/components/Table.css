@@ -11,15 +11,20 @@
   width: 70vw;
 }
 
+.table-wrapper {
+  width: 100%; /* El ancho se ajusta al contenedor padre */
+  overflow-x: auto; /* Habilita el scroll horizontal */
+  height: 100vh;
+}
+
 .styled-table {
-  width: 100%;
-  height: auto;
-  max-width: 1200px; /* Ajuste para pantallas muy grandes */
+  width: 100%; /* Ajustar la tabla al contenedor */
+  min-width: 1200px; /* Define un ancho mínimo para tablas muy anchas */
   border-collapse: collapse;
   font-size: 1em;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  overflow-x: auto; /* Scroll horizontal */
 }
+
 
 .styled-table thead tr {
   background-color: #009879;

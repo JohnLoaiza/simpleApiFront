@@ -105,16 +105,44 @@ const Table = (props: Props) => {
 
   return (
     <div className="table-container">
-      <> {dataList.length > 0 ? <>
-        <header className="header">
-          <h1 onClick={() => {console.log(dataList);
-          }}>Proyecto: {project}</h1>
-          <h2>Colección: {collection}</h2>
-        </header>
-        <div className="action-icons">
-          <FaSync onClick={async () => await getData()} style={{ cursor: 'pointer', marginRight: '10px' }} title="Reload Data" />
-          <FaPlus onClick={() => setEditModal({ flag: true, doc: dataList[0], obj:  dataList[0].propierties, mapList: [], asEdit: false, addDoc: addDoc, editDoc: editDoc, indexList: indexList })} style={{ cursor: 'pointer', marginRight: '10px' }} title="Add New" />
-        </div>
+  {dataList.length > 0 ? (
+    <>
+      <header className="header">
+        <h1
+          onClick={() => {
+            console.log(dataList);
+          }}
+        >
+          Proyecto: {project}
+        </h1>
+        <h2>Colección: {collection}</h2>
+      </header>
+      <div className="action-icons">
+        <FaSync
+          onClick={async () => await getData()}
+          style={{ cursor: "pointer", marginRight: "10px" }}
+          title="Reload Data"
+        />
+        <FaPlus
+          onClick={() =>
+            setEditModal({
+              flag: true,
+              doc: dataList[0],
+              obj: dataList[0].propierties,
+              mapList: [],
+              asEdit: false,
+              addDoc: addDoc,
+              editDoc: editDoc,
+              indexList: indexList,
+            })
+          }
+          style={{ cursor: "pointer", marginRight: "10px" }}
+          title="Add New"
+        />
+      </div>
+
+      {/* Envolvemos la tabla dentro del contenedor con scroll horizontal */}
+      <div className="table-wrapper">
         <table className="styled-table">
           <thead>
             <tr>
@@ -128,26 +156,65 @@ const Table = (props: Props) => {
             {dataList.map((doc, index) => (
               <tr key={doc.id}>
                 {indexList.map((i) => {
-                  var finalValue;
-                 
-                    finalValue = doc.propierties[i];
-                
-
-                  return <td key={i}>{identificateVar(finalValue, finalValue , <InfoIconTooltip addDoc={addDoc} editDoc={editDoc} doc={doc} setEditModal={setEditModal} mapList={[i]} info={finalValue}></InfoIconTooltip>, <InfoIconTooltip addDoc={addDoc} doc={doc} setEditModal={setEditModal} mapList={[i]} info={finalValue}></InfoIconTooltip>)}</td>
+                  const finalValue = doc.propierties[i];
+                  return (
+                    <td key={i}>
+                      {identificateVar(
+                        finalValue,
+                        finalValue,
+                        <InfoIconTooltip
+                          addDoc={addDoc}
+                          editDoc={editDoc}
+                          doc={doc}
+                          setEditModal={setEditModal}
+                          mapList={[i]}
+                          info={finalValue}
+                        />,
+                        <InfoIconTooltip
+                          addDoc={addDoc}
+                          doc={doc}
+                          setEditModal={setEditModal}
+                          mapList={[i]}
+                          info={finalValue}
+                        />
+                      )}
+                    </td>
+                  );
                 })}
                 <td>
-                  <FaEdit onClick={() => setEditModal({editAs: 'objectList', indexEdit: index, flag: true, obj: doc.propierties, mapList: [], doc: doc, asEdit: true, addDoc: addDoc, editDoc: editDoc, indexList: indexList })} style={{ cursor: 'pointer', marginRight: '10px' }} />
-                  <FaTrash onClick={() => deleteDoc(doc.id)} style={{ cursor: 'pointer', color: 'red' }} />
+                  <FaEdit
+                    onClick={() =>
+                      setEditModal({
+                        editAs: "objectList",
+                        indexEdit: index,
+                        flag: true,
+                        obj: doc.propierties,
+                        mapList: [],
+                        doc: doc,
+                        asEdit: true,
+                        addDoc: addDoc,
+                        editDoc: editDoc,
+                        indexList: indexList,
+                      })
+                    }
+                    style={{ cursor: "pointer", marginRight: "10px" }}
+                  />
+                  <FaTrash
+                    onClick={() => deleteDoc(doc.id)}
+                    style={{ cursor: "pointer", color: "red" }}
+                  />
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+      </div>
+    </>
+  ) : (
+    <DynamicKeyValue addDoc={addDoc}></DynamicKeyValue>
+  )}
+</div>
 
-      </> : <DynamicKeyValue addDoc={addDoc}></DynamicKeyValue>}
-      </>
-
-    </div>
   );
 };
 

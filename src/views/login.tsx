@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import styles from './styles.module.css';
 import { apiRoute, dbName } from '../configs';
 import { Link, useNavigate } from 'react-router-dom';
+import { programs, rutes, universities } from '../initData';
 
 const Login: React.FC = () => {
     const [username, setUsername] = useState('');
@@ -12,6 +13,85 @@ const Login: React.FC = () => {
     const [message, setMessage] = useState<string | null>(null);
     const navigate = useNavigate(); // Hook de navegación
 
+
+    const getData = async () => {
+        const response = await axios.get(`${apiRoute}/${dbName}/programas`).catch(() => {
+         alert('Problemas con el API, no se pudo conectar')
+        });
+    
+        if (response) {
+         if (response.data.length > 0) {
+            console.log('ya existen programas en la bd');
+         
+         } else {
+                programs.forEach(async (p: any) => {
+                    const indexList =  Object.keys(p.propierties)
+                    indexList.forEach((i) => {
+                        p.propierties[i] =  p.propierties[i] 
+                    })
+                    const response = await axios.post(`${apiRoute}/${dbName}/programas/insert`, p.propierties).catch(() => {
+                        console.log('Error al insertar');
+                      });
+                })
+                console.log('Se insertan programas');
+                
+         }
+  
+        } 
+
+        const response2 = await axios.get(`${apiRoute}/${dbName}/universidad`).catch(() => {
+            alert('Problemas con el API, no se pudo conectar')
+           });
+       
+           if (response) {
+            if (response.data.length > 0) {
+               console.log('ya existen programas en la bd');
+            
+            } else {
+                   universities.forEach(async (p: any) => {
+                    const indexList =  Object.keys(p.propierties)
+                    indexList.forEach((i) => {
+                        p.propierties[i] =  p.propierties[i] 
+                    })
+                       const response = await axios.post(`${apiRoute}/${dbName}/universidad/insert`, p.propierties).catch(() => {
+                           console.log('Error al insertar');
+                         });
+                   })
+                   console.log('Se insertan universidades');
+
+            }
+     
+           } 
+
+           const response3 = await axios.get(`${apiRoute}/${dbName}/rutas`).catch(() => {
+            alert('Problemas con el API, no se pudo conectar')
+           });
+       
+           if (response) {
+            if (response.data.length > 0) {
+               console.log('ya existen programas en la bd');
+            
+            } else {
+                rutes.forEach(async (p: any) => {
+                    const indexList =  Object.keys(p.propierties)
+                    indexList.forEach((i) => {
+                        p.propierties[i] =  p.propierties[i] 
+                    })
+                       const response = await axios.post(`${apiRoute}/${dbName}/rutas/insert`, p.propierties).catch(() => {
+                           console.log('Error al insertar');
+                         });
+                   })
+                   console.log('Se insertan rutas');
+
+            }
+     
+           } 
+      };
+      useEffect(() => {
+        getData();
+        return () => { };
+      }, []);
+    
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);

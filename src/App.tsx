@@ -15,17 +15,20 @@ const App: React.FC = () => {
           path="/param/:project/:collection"
           element={<ProtectedRoute element={<OpenTable />} />}
         />
-        
+
         {/* Ruta protegida para el dashboard */}
         <Route
           path="/dashboard/:module"
           element={<ProtectedRoute element={<Dashboard />} />}
         />
-         <Route
+        <Route
           path="/dashboard"
           element={<ProtectedRoute element={<Dashboard />} />}
         />
-
+        <Route
+          path="/"
+          element={<ProtectedRoute element={<Dashboard />} />}
+        />
         {/* Rutas públicas */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
