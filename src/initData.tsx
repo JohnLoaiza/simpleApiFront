@@ -1,3 +1,105 @@
+import axios from "axios";
+import { apiRoute, dbName } from "./configs";
+
+
+export   const getData = async () => {
+    const response = await axios.get(`${apiRoute}/${dbName}/programas`).catch(() => {
+     alert('Problemas con el API, no se pudo conectar')
+    });
+
+    if (response) {
+     if (response.data.length > 0) {
+        console.log('ya existen programas en la bd');
+     
+     } else {
+            programs.forEach(async (p: any) => {
+                const indexList =  Object.keys(p.propierties)
+                indexList.forEach((i) => {
+                    p.propierties[i] =  p.propierties[i] 
+                })
+                const response = await axios.post(`${apiRoute}/${dbName}/programas/insert`, p.propierties).catch(() => {
+                    console.log('Error al insertar');
+                  });
+            })
+            console.log('Se insertan programas');
+            
+     }
+
+    } 
+
+    const response2 = await axios.get(`${apiRoute}/${dbName}/universidad`).catch(() => {
+        alert('Problemas con el API, no se pudo conectar')
+       });
+   
+       if (response) {
+        if (response.data.length > 0) {
+           console.log('ya existen programas en la bd');
+        
+        } else {
+               universities.forEach(async (p: any) => {
+                const indexList =  Object.keys(p.propierties)
+                indexList.forEach((i) => {
+                    p.propierties[i] =  p.propierties[i] 
+                })
+                   const response = await axios.post(`${apiRoute}/${dbName}/universidad/insert`, p.propierties).catch(() => {
+                       console.log('Error al insertar');
+                     });
+               })
+               console.log('Se insertan universidades');
+
+        }
+ 
+       } 
+
+       const response3 = await axios.get(`${apiRoute}/${dbName}/rutas`).catch(() => {
+        alert('Problemas con el API, no se pudo conectar')
+       });
+   
+       if (response) {
+        if (response.data.length > 0) {
+           console.log('ya existen programas en la bd');
+        
+        } else {
+            rutes.forEach(async (p: any) => {
+                const indexList =  Object.keys(p.propierties)
+                indexList.forEach((i) => {
+                    p.propierties[i] =  p.propierties[i] 
+                })
+                   const response = await axios.post(`${apiRoute}/${dbName}/rutas/insert`, p.propierties).catch(() => {
+                       console.log('Error al insertar');
+                     });
+               })
+               console.log('Se insertan rutas');
+
+        }
+ 
+       } 
+       const response4 = await axios.get(`${apiRoute}/${dbName}/users`).catch(() => {
+        alert('Problemas con el API, no se pudo conectar')
+       });
+   
+       if (response) {
+        if (response.data.length > 0) {
+           console.log('ya existen programas en la bd');
+        
+        } else {
+            users.forEach(async (p: any) => {
+                const indexList =  Object.keys(p.propierties)
+                indexList.forEach((i) => {
+                    p.propierties[i] =  p.propierties[i] 
+                })
+                   const response = await axios.post(`${apiRoute}/${dbName}/users/insert`, p.propierties).catch(() => {
+                       console.log('Error al insertar');
+                     });
+               })
+               console.log('Se insertan usuarios');
+
+        }
+ 
+       } 
+  };
+
+
 
 export const universities = [
     {
@@ -54,6 +156,83 @@ export const rutes = [
                 "Mis cursos",
                 "Liquidación de matricula",
                 "Horario"
+            ]
+        }
+    }
+]
+
+export const users = [
+    {
+        "id": "671bf70afb454e862955e071",
+        "propierties": {
+            "username": "John",
+            "password": "$2a$11$BQ8jMrHF5wkBu2tDdOitc.oKUo1YDDJqK2GIbAN6oW8Lyp8yz1jEK",
+            "roles": [
+                "Profesor",
+                "Estudiante"
+            ]
+        }
+    },
+    {
+        "id": "671c21e44871d60e650b1946",
+        "propierties": {
+            "username": "Daniel",
+            "password": "$2a$11$5WXC9dPL9FyKDDB.VPWIeuFrDt.msS1DwZ7GxIUVS3Y.B165AZThG",
+            "roles": [
+                "Estudiante"
+            ]
+        }
+    },
+    {
+        "id": "671c22624871d60e650b1947",
+        "propierties": {
+            "username": "Mario",
+            "password": "$2a$11$rZqAFVcSAbXsXneWDBbyDeuAPkUi70syOrnuQQwA2OIOoeCfihhWS",
+            "roles": [
+                "Profesor"
+            ]
+        }
+    },
+    {
+        "id": "672e510a7c1b4ff122232c00",
+        "propierties": {
+            "username": "Loaiza",
+            "password": "$2a$11$MDfZw96bo/tiQUWSXzuvTOn1JTbv673lrppIAWnfcwn3GzDS2PtAy",
+            "roles": [
+                "Admin",
+                "Profesor",
+                "Estudiante"
+            ]
+        }
+    },
+    {
+        "id": "672e59807c1b4ff122232c01",
+        "propierties": {
+            "username": "Luis",
+            "password": "$2a$11$huJRRyTDHtZ3zfy5zXKdReHkX01OGQfSTnD8NAHvSg.RJdFQonlMS",
+            "roles": [
+                "Estudiante"
+            ]
+        }
+    },
+    {
+        "id": "673e75ce836b75e9b23e05cd",
+        "propierties": {
+            "username": "Dora",
+            "password": "$2a$11$.mwuMQNwlOf4/Yvh2YFAfOUlsZy8F1cpmH70bqpwix3LaBf0pLR3i",
+            "roles": [
+                "Estudiante"
+            ]
+        }
+    },
+    {
+        "id": "673e7613836b75e9b23e05ce",
+        "propierties": {
+            "username": "Lucho",
+            "password": "$2a$11$ULKbKUIHhrs6J9cxUlq.A.B3j6IgRS73CyY9JLSRpoVShxQrg0UsK",
+            "roles": [
+                "Admin",
+                "Profesor"
             ]
         }
     }

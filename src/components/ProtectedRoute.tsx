@@ -17,88 +17,74 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ element }) => {
 
 
   useEffect(() => {
-    // Verificar el JWT en sessionStorage
-    const sessionData = JSON.parse(sessionStorage.getItem('settings') || '{}');
-    console.log('sesion storage es');
-    console.log(sessionData);
-    
-    const token = sessionData?.jwt;
-    const userId = sessionData?.userId;
- console.log('token es ' + token);
- 
-    if (!token) {
-      setIsValid(false);
-      return;
-    }
-    console.log('verifica token ' + token);
-
-    // Llamar al endpoint que verifica el token
-   
-      var roles;
-      const response =  axios.get(`${apiRoute}/${dbName}/users/${userId}`).then(
-        (response) => {
-          console.log(response.data);
-          roles = JSON.parse(response.data.propierties.roles)
-            }
-    
-      ).catch(
-        (error) => {
-          console.error(error);
-          alert('No se pudo encontrar usuario con este id')
-          navigate('/login');
+    const verifyUserAndRoutes = async () => {
+      try {
+        // Obtener datos de sesión
+        const sessionData = JSON.parse(sessionStorage.getItem('settings') || '{}');
+        const token = sessionData?.jwt;
+        const userId = sessionData?.userId;
+  
+        if (!token) {
+          setIsValid(false);
+          return;
         }
-      );
-var adminModules;
-var teacherModules;
-var studentModules;
-   const rutas = axios
-      .get(`${apiRoute}/${dbName}/rutas`)
-      .then((response) => {
-        
-       const data : any[] = response.data as any[]
-       console.log('data es');
-       console.log(data);
-       
-       
-        adminModules = data.filter((x: any) => x.propierties.rol === 'Admin')[0];
-        teacherModules = data.filter((x: any) => x.propierties.rol === 'Profesor')[0];
-        studentModules = data.filter((x: any) => x.propierties.rol === 'Estudiante')[0];
-        const acumuloRutas = [...JSON.parse(studentModules.propierties.rutas),...JSON.parse(teacherModules.propierties.rutas), ...JSON.parse(adminModules.propierties.rutas) ]
-           if (module != 'home' && acumuloRutas.includes(module)) {
-                navigate('/login')
-           }
+  
+        // Verificar token y obtener datos del usuario
+        const userResponse = await axios.get(`${apiRoute}/${dbName}/users/${userId}`);
+        const roles = JSON.parse(userResponse.data.propierties.roles);
+  
+        // Obtener rutas
+        const rutasResponse = await axios.get(`${apiRoute}/${dbName}/rutas`);
+        const data: any[] = rutasResponse.data;
+  
+        const adminModules = data.find((x) => x.propierties.rol === 'Admin');
+        const teacherModules = data.find((x) => x.propierties.rol === 'Profesor');
+        const studentModules = data.find((x) => x.propierties.rol === 'Estudiante');
 
-        console.log('adminmodules');
-        console.log(adminModules);
-        
-        
-        setAdminModules(JSON.parse(adminModules.propierties.rutas))
-        setTeacherModules(JSON.parse(teacherModules.propierties.rutas))
-        setStudentModules(JSON.parse(studentModules.propierties.rutas))
-      })
-      .catch(() => {
-        setIsValid(false);
-      });
-      axios
-      .post(`${apiRoute}/${dbName}/users/verify-token`, { token })
-      .then((response) => {
-        console.log('verifica token ' + token);
-        console.log('respuesta es ');
-        console.log(response.data);
-        
-        
-        
-        if (response.data.success) {
-            setSesionTime(response.data.timeRemaining);
+        var acumuloRutas : any = [ ]
+
+        if (roles.includes('Profesor')) {
+          acumuloRutas = [...acumuloRutas, ...JSON.parse(teacherModules?.propierties.rutas || '[]')];
+        }
+        if (roles.includes('Estudiante')) {
+          acumuloRutas = [...acumuloRutas, ...JSON.parse(studentModules?.propierties.rutas || '[]')];
+        }
+      
+        if (roles.includes('Admin')) {
+          acumuloRutas = [...acumuloRutas, ...JSON.parse(adminModules?.propierties.rutas || '[]')];
+        }
+  
+  
+        setAdminModules(JSON.parse(adminModules?.propierties.rutas || '[]'));
+        setTeacherModules(JSON.parse(teacherModules?.propierties.rutas || '[]'));
+        setStudentModules(JSON.parse(studentModules?.propierties.rutas || '[]'));
+        setAllpermitedRutes(acumuloRutas);
+  
+        // Validar rutas permitidas
+        if (module !== 'home' && !acumuloRutas.includes(module)) {
+          alert('No tienes acceso a este modulo')
+          navigate('/');
+          return;
+        }
+  
+        // Verificar token en el servidor
+        const tokenResponse = await axios.post(`${apiRoute}/${dbName}/users/verify-token`, { token });
+        if (tokenResponse.data.success) {
+          setSesionTime(tokenResponse.data.timeRemaining);
           setIsValid(true);
         } else {
           setIsValid(false);
         }
-      })
-      .catch(() => {
+      } catch (error) {
+        console.error('Error verificando usuario y rutas:', error);
         setIsValid(false);
-      });
-  }, []);
+        navigate('/login');
+      }
+    };
+  
+    verifyUserAndRoutes();
+  }, [module]); // Dependencia en module para que se revalide cuando cambie
+  
 
   if (isValid === null) {
     // Puedes mostrar un cargando o una transición mientras se verifica
