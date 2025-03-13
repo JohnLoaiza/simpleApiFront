@@ -3,11 +3,12 @@ import  { useEffect, useState } from "react";
 import { FaEdit, FaTrash, FaSync, FaPlus } from "react-icons/fa"; // Importar íconos adicionales
 import "./Table.css"; // Archivo de estilos para personalizar la tabla
 import axios from "axios";
-import  { ModalProps } from "../databaseManager/view/components/editModal";
-import DynamicKeyValue from "../databaseManager/view/createDb";
+import  { ModalProps } from "../databaseManager/frontServices/components/editModal";
+import DynamicKeyValue from "../databaseManager/frontServices/createDb";
 import { apiRoute } from "../configs";
-import InfoIconTooltip, { identificateVar, isJSON } from "../databaseManager/view/components/extraInfo";
-import EditModal from "../databaseManager/view/components/editModal";
+import InfoIconTooltip, { identificateVar, isJSON } from "../databaseManager/frontServices/components/extraInfo";
+import EditModal from "../databaseManager/frontServices/components/editModal";
+import { Projects, projectsAdmin } from "../projectsManager";
 
 type Props = {
   project: string;
@@ -145,7 +146,7 @@ const Table = (props: Props) => {
           </header>
           <div className="action-icons">
             <FaSync
-              onClick={async () => await getData()}
+              onClick={async () => console.log(projectsAdmin(Projects.INDICATORS))}
               style={{ cursor: "pointer", marginRight: "10px" }}
               title="Reload Data"
             />

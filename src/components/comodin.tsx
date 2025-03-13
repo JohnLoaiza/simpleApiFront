@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { isJSON, isObject, renderObjectList } from "../databaseManager/view/components/extraInfo";
+import { isJSON, isObject, renderObjectList } from "../databaseManager/frontServices/components/extraInfo";
 
 interface modalProps {
     doc: any;

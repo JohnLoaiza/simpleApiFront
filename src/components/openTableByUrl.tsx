@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import Table from "./table";
 import { useState } from "react";
-import EditModal from "../databaseManager/view/components/editModal";
+import EditModal from "../databaseManager/frontServices/components/editModal";
 import styles from '../views/styles.module.css'
 
 export const OpenTable: React.FC = () => {
