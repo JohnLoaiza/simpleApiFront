@@ -31,7 +31,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ element }) => {
   
         // Verificar token y obtener datos del usuario
         const userResponse = await axios.get(`${apiRoute}/${dbName}/users/${userId}`);
-        const roles = JSON.parse(userResponse.data.propierties.roles);
+        const roles = userResponse.data.propierties.roles;
   
         // Obtener rutas
         const rutasResponse = await axios.get(`${apiRoute}/${dbName}/rutas`);

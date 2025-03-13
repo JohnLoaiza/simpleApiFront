@@ -13,7 +13,7 @@ const App: React.FC = () => {
         {/* Ruta protegida que toma dos parámetros de la URL */}
         <Route
           path="/param/:project/:collection"
-          element={<ProtectedRoute element={<OpenTable />} />}
+          element={<OpenTable />}
         />
 
         {/* Ruta protegida para el dashboard */}

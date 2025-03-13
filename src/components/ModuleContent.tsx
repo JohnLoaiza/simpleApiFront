@@ -27,17 +27,8 @@ const ModuleContent = ({ module, setEditModal, userSettings }: ModuleContentProp
     }
 
     const renderModuleContent = () => {
-        switch (module) {
-            case 'home':
-                return <div>Tus roles activos son
-                {userSettings.roles.map((r)=> <>
-                <div>{r} 
-                    <div style={{backgroundColor: rolColor(r), height: '20px', width: '20px', borderRadius: '10px'}}></div>
-                </div>
-                </>) }
-                <CountdownTimer initialTime={sesionTime}></CountdownTimer>
-                </div>;
-                case 'Home':
+        switch (module.toUpperCase()) {
+                case 'HOME':
                     return <div>Tus roles activos son
                     {userSettings.roles.map((r)=> <>
                     <div>{r} 

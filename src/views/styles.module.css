@@ -142,6 +142,19 @@ h1 {
   color: #2980b9;
 }
 
+/* Asegura que el contenedor de la tabla permita tooltips sobre él */
+.content div {
+  z-index: 1; /* Un z-index bajo pero definido */
+}
+
+
+/* Alternativa si sigues viendo el problema */
+.content div:hover {
+  transform: translateY(-5px);
+  z-index: 10; /* Para que el hover no tape el tooltip */
+}
+
+
 /* Register and Login Forms */
 .form-container {
   max-width: 400px;

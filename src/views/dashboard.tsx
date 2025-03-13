@@ -66,7 +66,7 @@ const getDataByUserId = async () => {
     (response) => {
       console.log(response.data);
       setUser({
-        roles: JSON.parse(response.data.propierties.roles),
+        roles: response.data.propierties.roles,
         username: response.data.propierties.username
       })    }
 
