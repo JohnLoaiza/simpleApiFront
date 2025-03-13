@@ -16,6 +16,10 @@ export const identificateVar = (myVariable: MyType, isString: any, isArray: any,
     // Es un objeto
     console.log("Es un objeto:", myVariable);
     return isObject
+  } else if (typeof myVariable === 'number' && myVariable !== null) {
+    // Es un objeto
+    console.log("Es un objeto:", myVariable);
+    return myVariable
   } else {
     console.log("Tipo desconocidoo");
     console.log(myVariable);
@@ -24,22 +28,8 @@ export const identificateVar = (myVariable: MyType, isString: any, isArray: any,
   }
 }
 
-export function isJSON(str: string): boolean {
-  // Comprobación preliminar
-  console.log('compureba si es json a ');
-  console.log(str);
-
-
-  if (str.trim().startsWith("{") && str.trim().endsWith("}") ||
-    str.trim().startsWith("[") && str.trim().endsWith("]")) {
-    try {
-      JSON.parse(str); // Intenta parsear el string
-      return true; // Es JSON válido
-    } catch (e) {
-      return false; // No es JSON válido
-    }
-  }
-  return false; // No comienza ni termina como JSON
+export function isJSON(value: any): boolean {
+  return typeof value === "object" && value !== null;
 }
 
 export function isObject(value: any): value is object {
@@ -54,15 +44,9 @@ export const ObjetctToView = ({info, setEditModal, mapList, doc, editDoc}: any) 
            setEditModal({editAs: 'object', flag: true, mapList: mapList, indexEdit: 0, doc: doc, obj: info, asEdit: true, addDoc: () => {}, editDoc:  editDoc, indexList: Object.keys(info) })}} style={{ cursor: 'pointer', marginRight: '10px' }} />
   {
     Object.keys(info).map((k) => {
-      let finalValue;
+      let finalValue = info[k];
     
-      if (isJSON(info[k] + '')) {
-        console.log('Es JSON');
-        finalValue = JSON.parse(info[k]);
-      } else {
-        console.log('Es variable limpia');
-        finalValue = typeof info[k] === 'number' ? info[k] + '' : info[k];
-      }
+      
     
       // Aquí verificamos el tipo de finalValue para ver si necesita el InfoIconTooltip
       const renderValue = identificateVar(

@@ -9,13 +9,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 const App: React.FC = () => {
   return (
     <Router>
-      <Routes>
-        {/* Ruta protegida que toma dos parámetros de la URL */}
-        <Route
-          path="/param/:project/:collection"
-          element={<OpenTable />}
-        />
-
+      <Routes>   
         {/* Ruta protegida para el dashboard */}
         <Route
           path="/dashboard/:module"
@@ -32,6 +26,10 @@ const App: React.FC = () => {
         {/* Rutas públicas */}
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route
+          path="/param/:project/:collection"
+          element={<OpenTable />}
+        />
       </Routes>
     </Router>
   );

@@ -36,6 +36,7 @@ const Table = (props: Props) => {
       const obj = response.data[0].propierties;
     //  setIndexList(Object.keys(obj));
       
+      console.log(response.data);
       
     //  setDataList(response.data);
     toDataFormat(response.data, Object.keys(obj))
@@ -51,7 +52,7 @@ const Table = (props: Props) => {
       indexList.forEach(i => {
         var finalValue;
         if (isJSON(f.propierties[i])) {
-          finalValue = JSON.parse(f.propierties[i]);
+          finalValue = f.propierties[i];
         } else {
           finalValue = f.propierties[i];
         }
