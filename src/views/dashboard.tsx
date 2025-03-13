@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Sidebar from '../components/Sidebar';
 import ModuleContent from '../components/ModuleContent';
 import styles from './styles.module.css';
-import EditModal from '../components/editModal';
+import EditModal from '../databaseManager/view/components/editModal';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { apiRoute, dbName } from '../configs';

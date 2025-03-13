@@ -38,7 +38,7 @@ const ModuleContent = ({ module, setEditModal, userSettings }: ModuleContentProp
                     <CountdownTimer initialTime={sesionTime}></CountdownTimer>
                     </div>;
             default:
-                return <Table project={dbName} collection={module} setEditModal={setEditModal}></Table>;
+                return <Table project={dbName} collection={module} ></Table>;
 
         }
     };

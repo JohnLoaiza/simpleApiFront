@@ -3,11 +3,10 @@ import  { useEffect, useState } from "react";
 import { FaEdit, FaTrash, FaSync, FaPlus } from "react-icons/fa"; // Importar íconos adicionales
 import "./Table.css"; // Archivo de estilos para personalizar la tabla
 import axios from "axios";
-import  { ModalProps } from "../databaseManager/view/components/editModal";
-import DynamicKeyValue from "../databaseManager/view/createDb";
-import { apiRoute } from "../configs";
-import InfoIconTooltip, { identificateVar, isJSON } from "../databaseManager/view/components/extraInfo";
-import EditModal from "../databaseManager/view/components/editModal";
+import EditModal, { ModalProps } from "./components/editModal";
+import { apiRoute } from "../../configs";
+import InfoIconTooltip, { identificateVar, isJSON } from "./components/extraInfo";
+import DynamicKeyValue from "./createDb";
 
 type Props = {
   project: string;
