@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import styles from './styles.module.css';
-import { apiRoute, dbName } from '../configs';
+import styles from '../../../views/styles.module.css';
+import { apiRoute } from '../../../configs';
 import { Link, useNavigate } from 'react-router-dom';
-
-const rolesList = ['Admin', 'Profesor', 'Estudiante']; // Lista de roles disponibles
+import { Rol } from '../../projectsManager/models/ProjectPropiertiesModel';
+import { Admin } from '../../projectsManager';
+import { MainRoutes } from '../../../App';
 
 const Register: React.FC = () => {
     const [username, setUsername] = useState('');
@@ -13,9 +14,9 @@ const Register: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [message, setMessage] = useState<string | null>(null);
-    const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
+    const [selectedRoles, setSelectedRoles] = useState<Rol[]>([]);
     const navigate = useNavigate()
-
+    const rolesList: Rol[] = Admin.projectSelected!.props.roles;
     const handleRegister = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
@@ -24,7 +25,7 @@ const Register: React.FC = () => {
 
         try {
             // Primera solicitud para encriptar la contraseña
-            const encryptResponse = await axios.post(`${apiRoute}/${dbName}/users/encrypt`, {
+            const encryptResponse = await axios.post(`${apiRoute}/${Admin.projectSelected!.props.name}/users/encrypt`, {
                 data: password
             });
             console.log(encryptResponse.data);
@@ -36,16 +37,16 @@ const Register: React.FC = () => {
             console.log(encryptedPassword);
             
             // Segunda solicitud para registrar el usuario con la contraseña encriptada
-            const insertResponse = await axios.post(`${apiRoute}/${dbName}/users/insert`, {
+            const insertResponse = await axios.post(`${apiRoute}/${Admin.projectSelected!.props.name}/users/insert`, {
                 username: username,
                 password: encryptedPassword,
-                roles: selectedRoles
+                roles: selectedRoles.map(r => r.name)
             });
 
             // Manejamos la respuesta exitosa del registro
             setMessage(insertResponse.data.message || 'Registro exitoso');
             alert('Registro exitoso, ya puedes iniciar sesión')
-            navigate('/login'); // Redirige a la ruta principal
+            navigate(Admin.generateProjectRoute(MainRoutes.LOGIN)); // Redirige a la ruta principal
         } catch (err: any) {
             setError(err.response?.data?.message || err.message || 'Error desconocido');
         } finally {
@@ -53,9 +54,9 @@ const Register: React.FC = () => {
         }
     };
 
-    const handleRoleClick = (role: string) => {
+    const handleRoleClick = (rol: Rol) => {
         setSelectedRoles(prevRoles =>
-            prevRoles.includes(role) ? prevRoles.filter(r => r !== role) : [...prevRoles, role]
+            prevRoles.includes(rol) ? prevRoles.filter(r => r !== rol) : [...prevRoles, rol]
         );
     };
 
@@ -94,25 +95,25 @@ const Register: React.FC = () => {
                         {rolesList.map((role) => (
                             <button
                                 type="button"
-                                key={role}
+                                key={role.name}
                                 className={`${styles.roleButton} ${
                                     selectedRoles.includes(role) ? styles.roleSelected : ''
                                 }`}
                                 onClick={() => handleRoleClick(role)}
                             >
-                                {role}
+                                {role.name}
                             </button>
                         ))}
                     </div>
                 </div>
-<br></br>
+                <br></br>
                 <button type="submit" className={styles.submitButton}>
                     {loading ? 'Cargando...' : 'Registrar'}
                 </button>
             </form>
             <p className={styles.registerPrompt}>
                     ¿Ya tienes una cuenta?{' '}
-                    <Link to="/login" className={styles.registerLink}>
+                    <Link to={Admin.generateProjectRoute(MainRoutes.LOGIN)} className={styles.registerLink}>
                         Inicia sesión aquí
                     </Link>
                 </p>

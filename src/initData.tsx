@@ -1,9 +1,10 @@
 import axios from "axios";
-import { apiRoute, dbName } from "./configs";
+import { apiRoute } from "./configs";
+import { Admin } from "./multiProjectLibrary/projectsManager";
 
 
 export   const getData = async () => {
-    const response = await axios.get(`${apiRoute}/${dbName}/programas`).catch(() => {
+    const response = await axios.get(`${apiRoute}/${Admin.projectSelected!.props.name}/programas`).catch(() => {
      alert('Problemas con el API, no se pudo conectar')
     });
 
@@ -17,7 +18,7 @@ export   const getData = async () => {
                 indexList.forEach((i) => {
                     p.propierties[i] =  p.propierties[i] 
                 })
-                const response = await axios.post(`${apiRoute}/${dbName}/programas/insert`, p.propierties).catch(() => {
+                const response = await axios.post(`${apiRoute}/${Admin.projectSelected!.props.name}/programas/insert`, p.propierties).catch(() => {
                     console.log('Error al insertar');
                   });
             })
@@ -27,7 +28,7 @@ export   const getData = async () => {
 
     } 
 
-    const response2 = await axios.get(`${apiRoute}/${dbName}/universidad`).catch(() => {
+    const response2 = await axios.get(`${apiRoute}/${Admin.projectSelected!.props.name}/universidad`).catch(() => {
         alert('Problemas con el API, no se pudo conectar')
        });
    
@@ -41,7 +42,7 @@ export   const getData = async () => {
                 indexList.forEach((i) => {
                     p.propierties[i] =  p.propierties[i] 
                 })
-                   const response = await axios.post(`${apiRoute}/${dbName}/universidad/insert`, p.propierties).catch(() => {
+                   const response = await axios.post(`${apiRoute}/${Admin.projectSelected!.props.name}/universidad/insert`, p.propierties).catch(() => {
                        console.log('Error al insertar');
                      });
                })
@@ -51,7 +52,7 @@ export   const getData = async () => {
  
        } 
 
-       const response3 = await axios.get(`${apiRoute}/${dbName}/rutas`).catch(() => {
+       const response3 = await axios.get(`${apiRoute}/${Admin.projectSelected!.props.name}/rutas`).catch(() => {
         alert('Problemas con el API, no se pudo conectar')
        });
    
@@ -65,7 +66,7 @@ export   const getData = async () => {
                 indexList.forEach((i) => {
                     p.propierties[i] =  p.propierties[i] 
                 })
-                   const response = await axios.post(`${apiRoute}/${dbName}/rutas/insert`, p.propierties).catch(() => {
+                   const response = await axios.post(`${apiRoute}/${Admin.projectSelected!.props.name}/rutas/insert`, p.propierties).catch(() => {
                        console.log('Error al insertar');
                      });
                })
@@ -74,7 +75,7 @@ export   const getData = async () => {
         }
  
        } 
-       const response4 = await axios.get(`${apiRoute}/${dbName}/users`).catch(() => {
+       const response4 = await axios.get(`${apiRoute}/${Admin.projectSelected!.props.name}/users`).catch(() => {
         alert('Problemas con el API, no se pudo conectar')
        });
    
@@ -88,7 +89,7 @@ export   const getData = async () => {
                 indexList.forEach((i) => {
                     p.propierties[i] =  p.propierties[i] 
                 })
-                   const response = await axios.post(`${apiRoute}/${dbName}/users/insert`, p.propierties).catch(() => {
+                   const response = await axios.post(`${apiRoute}/${Admin.projectSelected!.props.name}/users/insert`, p.propierties).catch(() => {
                        console.log('Error al insertar');
                      });
                })

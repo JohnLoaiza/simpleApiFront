@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import styles from './styles.module.css';
-import { apiRoute, dbName } from '../configs';
+import styles from '../../../views/styles.module.css';
+import { apiRoute } from '../../../configs';
 import { Link, useNavigate } from 'react-router-dom';
-import { getData, programs, rutes, universities, users } from '../initData';
+import { getData } from '../../../initData';
+import { Admin } from '../../projectsManager';
+import { MainRoutes } from '../../../App';
 
 const Login: React.FC = () => {
     const [username, setUsername] = useState('');
@@ -26,7 +28,7 @@ const Login: React.FC = () => {
         setError(null);
 
         try {
-            const response = await axios.post(`${apiRoute}/${dbName}/users/verify`, {
+            const response = await axios.post(`${apiRoute}/${Admin.projectSelected!.props.name}/users/verify`, {
                 userField: 'username',
                 encryptedField: 'password',
                 encrypted: password,
@@ -47,7 +49,7 @@ const Login: React.FC = () => {
                 }));
             
                 // Redirigir a la ruta principal
-                navigate('/dashboard');
+                navigate(Admin.generateProjectRoute(MainRoutes.DASHBOARD));
             }
         } catch (err: any) {
             setError(err.response?.data?.message || err.message || 'Error desconocido');
@@ -91,7 +93,7 @@ const Login: React.FC = () => {
 
                 <p className={styles.registerPrompt}>
                     ¿Aún no tienes una cuenta?{' '}
-                    <Link to="/register" className={styles.registerLink}>
+                    <Link to={Admin.generateProjectRoute(MainRoutes.REGISTER)} className={styles.registerLink}>
                         Regístrate aquí
                     </Link>
                 </p>

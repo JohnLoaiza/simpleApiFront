@@ -1,12 +1,13 @@
 // components/ModuleContent.tsx
-import React from 'react';
-import Table from './table';
-import { dbName, sesionTime } from '../configs';
-import { User } from '../views/dashboard';
-import CountdownTimer from './viewSesionTime';
+import {sesionTime } from '../../../configs';
+import CountdownTimer from '../../../components/viewSesionTime';
+import Table from './tableView';
+import { Admin } from '../../projectsManager';
+import { User } from './dashboard';
+import { Module } from '../../projectsManager/models/moduleModel';
 
 interface ModuleContentProps {
-    module: string;
+    module: Module;
     setEditModal: any
     userSettings: User
 }
@@ -27,10 +28,10 @@ const ModuleContent = ({ module, setEditModal, userSettings }: ModuleContentProp
     }
 
     const renderModuleContent = () => {
-        switch (module.toUpperCase()) {
+        switch (module.name.toUpperCase()) {
                 case 'HOME':
                     return <div>Tus roles activos son
-                    {userSettings.roles.map((r)=> <>
+                    {userSettings.roles.map(r => r.name).map((r)=> <>
                     <div>{r} 
                         <div style={{backgroundColor: rolColor(r), height: '20px', width: '20px', borderRadius: '10px'}}></div>
                     </div>
@@ -38,7 +39,7 @@ const ModuleContent = ({ module, setEditModal, userSettings }: ModuleContentProp
                     <CountdownTimer initialTime={sesionTime}></CountdownTimer>
                     </div>;
             default:
-                return <Table project={dbName} collection={module} ></Table>;
+                return <Table project={Admin.projectSelected!.props.name} collection={module.name} ></Table>;
 
         }
     };

@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
-import Table from "./table";
 import { useState } from "react";
-import EditModal from "../databaseManager/frontServices/components/editModal";
+import EditModal from "../multiProjectLibrary/databaseManager/frontServices/components/editModal";
 import styles from '../views/styles.module.css'
+import Table from "../multiProjectLibrary/databaseManager/frontServices/tableView";
 
 export const OpenTable: React.FC = () => {
   // Obtiene los parámetros de la ruta
