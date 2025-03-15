@@ -115,8 +115,13 @@ const Table = (props: Props) => {
   };
 
   const addDoc = async (doc: any) => {
+    console.log('requset va');
+    console.log(doc);
+    console.log(doc.properties);
+    
+    
     const response = await axios
-      .post(`${apiRoute}/${project}/${collection}/insert`, doc.propierties)
+      .post(`${apiRoute}/${project}/${collection}/insert`, doc.properties)
       .catch(() => {
         console.log("no hay que actualizar");
       });

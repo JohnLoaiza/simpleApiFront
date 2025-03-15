@@ -1,74 +1,89 @@
 import React, { useState } from 'react';
-import './createDb.css'; // Asegúrate de crear este archivo para los estilos
+import './createDb.css';
+import { identificateVar, isJSON } from './components/extraInfo';
 
 interface ParClaveValor {
-  indice: string;  // Cambiamos 'key' a 'indice'
-  valor: string; 
+  indice: string;
+  valor: any; 
 }
 
 interface Props {
-    addDoc: (doc: any) => void;
+  addDoc: (doc: any) => void;
 }
 
 const DynamicKeyValue = (props: Props) => {
-  // Estado para almacenar pares índice-valor como un arreglo de objetos
-  const [paresClaveValor, setParesClaveValor] = useState<ParClaveValor[]>([{ indice: 'índice1', valor: 'valor1' }]);
-  const [objetoFinal, setObjetoFinal] = useState<Record<string, string>>({}); // Estado para el objeto final
+  const [paresClaveValor, setParesClaveValor] = useState<ParClaveValor[]>([]);
+  const [objetoFinal, setObjetoFinal] = useState<Record<string, any>>({});
+  const [editorTexto, setEditorTexto] = useState<string>('');
 
-  // Maneja el cambio en los campos de texto
   const manejarCambioInput = (index: number, field: 'indice' | 'valor', value: string) => {
     const nuevosParesClaveValor = [...paresClaveValor];
-    nuevosParesClaveValor[index][field] = value;
-
-    // Actualiza el estado con los nuevos valores
+    try {
+      nuevosParesClaveValor[index][field] = JSON.parse(value);
+    } catch (error) {
+      nuevosParesClaveValor[index][field] = value;
+    }
     setParesClaveValor(nuevosParesClaveValor);
-    actualizarObjetoFinal(nuevosParesClaveValor); // Actualiza el objeto final al cambiar
+    actualizarObjetoFinal(nuevosParesClaveValor);
   };
 
-  // Maneja la adición de nuevos pares
   const agregarPar = () => {
     setParesClaveValor([...paresClaveValor, { indice: '', valor: '' }]);
   };
 
-  // Actualiza el objeto final en base a los pares actuales
   const actualizarObjetoFinal = (pares: ParClaveValor[]) => {
-    const objetoResultado = pares.reduce((acc, par) => {
-      acc[par.indice] = par.valor; // Asigna cada índice a su valor correspondiente
-      return acc;
-    }, {} as Record<string, string>);
-
-    setObjetoFinal(objetoResultado); // Establece el objeto final en el estado
+    var objetoResultado: Record<string, any> = {};
+    pares.forEach(par => {
+      objetoResultado[par.indice] = identificateVar(par.valor, par.valor, JSON.parse(par.valor), JSON.parse(par.valor));
+    });
+    setObjetoFinal(objetoResultado);
+    setEditorTexto(JSON.stringify(objetoResultado, null, 2));
   };
 
-  // Función para manejar la acción de finalizar
+  const manejarCambioTexto = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setEditorTexto(e.target.value);
+    try {
+      const jsonData = JSON.parse(e.target.value);
+      setObjetoFinal(jsonData);
+      setParesClaveValor(Object.entries(jsonData).map(([key, value]) => ({ indice: key, valor: String(value) })));
+    } catch {
+    }
+  };
+
   const finalizar = () => {
-    console.log("Objeto Final:", objetoFinal); // Aquí puedes realizar la acción que desees con el objeto final
-    props.addDoc({id: 0, propierties: objetoFinal})
-   // alert(JSON.stringify(objetoFinal, null, 2)); // Ejemplo: mostrar el objeto final en un alert
+    console.log('objeto final sale');
+    console.log(objetoFinal);
+    props.addDoc({ id: 0, properties: objetoFinal });
   };
 
   return (
-    <div className="container">
-      <h1>Pares Dinámicos Índice-Valor</h1>
+    <div className="container editor-wrapper">
       
-      {/* Indicadores para Índice y Valor */}
-      <div className="indicadores-container">
-        <span className="indicador">Índice</span>
-        <span className="indicador">Valor</span>
-      </div>
-
+      
+      <div className="editor-wrapper">
+      <h1>Editor de JSON / Pares Clave-Valor</h1>
+        <div className="editor-container">
+          <h2>Editor JSON</h2>
+          <textarea
+            className="editor-textarea"
+            value={editorTexto}
+            onChange={manejarCambioTexto}
+            placeholder="Escribe el JSON aquí..."
+          />
+        </div>
+        <h2>Pares Dinámicos Índice-Valor</h2>
       <div className="pares-container">
         {paresClaveValor.map((par, index) => (
           <div key={index} className="par-item">
             <input
               type="text"
-              placeholder="Índice"  // Placeholder en español
+              placeholder="Índice"
               value={par.indice}
               onChange={(e) => manejarCambioInput(index, 'indice', e.target.value)}
             />
             <input
               type="text"
-              placeholder="Valor"  // Placeholder en español
+              placeholder="Valor"
               value={par.valor}
               onChange={(e) => manejarCambioInput(index, 'valor', e.target.value)}
             />
@@ -76,13 +91,14 @@ const DynamicKeyValue = (props: Props) => {
         ))}
       </div>
       <button onClick={agregarPar}>Agregar Par</button>
-      <br></br>
-      <button onClick={finalizar}>Finalizar</button> {/* Botón de finalizar */}
-
-      <h2>Objeto Formado:</h2>
-      <div className="pares-lista">
-        <pre>{JSON.stringify(objetoFinal, null, 2)}</pre> {/* Muestra el objeto final */}
+      <br />
+      <button onClick={finalizar}>Finalizar</button>
       </div>
+      <div className="object-container">
+          <h2>Objeto Formado:</h2>
+          <pre className="json-output">{JSON.stringify(objetoFinal, null, 2)}</pre>
+        </div>
+      
     </div>
   );
 };

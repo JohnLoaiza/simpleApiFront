@@ -39,6 +39,10 @@ export abstract class Admin {
             name: "Estudent",
             authorizedModules: [
               { name: "prueba"},
+              { name: "users"},
+              { name: "cursos"},
+              {name: "pruebaFinal"}
+
             ],
           },
         ]),
