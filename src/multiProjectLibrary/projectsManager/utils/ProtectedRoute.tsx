@@ -72,13 +72,11 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ element }) => {
         console.log('sesion props es');
         console.log(sesionProps);
         
-        
-
         Sesion.initSesion(sesionProps);
 
         // Validar rutas permitidas
         if (
-          module !== "home" &&
+         module.toUpperCase() !== "HOME" &&
           !acumuloModules.map((m) => m.name).includes(module)
         ) {
           alert("No tienes acceso a este modulo");

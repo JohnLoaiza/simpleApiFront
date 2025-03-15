@@ -7,7 +7,6 @@ export type SesionProps = {
     time: number;
     logged: boolean;
     authorizeModules: Module[]
-
 }
 
 export abstract class Sesion {
@@ -17,7 +16,6 @@ export abstract class Sesion {
         this.props = props;
         return true;
    }
-
 
    static addAllModules(modules: Module[]) {
     this.props.authorizeModules =  {...this.props.authorizeModules, ...modules}

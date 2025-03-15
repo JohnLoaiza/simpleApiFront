@@ -30,16 +30,17 @@ const ModuleContent = ({ module, setEditModal, userSettings }: ModuleContentProp
     const renderModuleContent = () => {
         switch (module.name.toUpperCase()) {
                 case 'HOME':
-                    return <div>Tus roles activos son
+                    return <div>Tus roles activos son {userSettings.roles.toString()}
                     {userSettings.roles.map(r => r.name).map((r)=> <>
-                    <div>{r} 
+                    <div>
                         <div style={{backgroundColor: rolColor(r), height: '20px', width: '20px', borderRadius: '10px'}}></div>
+                        {r} 
                     </div>
                     </>) }
                     <CountdownTimer initialTime={sesionTime}></CountdownTimer>
                     </div>;
             default:
-                return <Table project={Admin.projectSelected!.props.name} collection={module.name} ></Table>;
+              return module.component ?? <Table project={Admin.projectSelected!.props.name} collection={module.name} ></Table>
 
         }
     };

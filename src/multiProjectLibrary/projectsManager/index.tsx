@@ -38,7 +38,7 @@ export abstract class Admin {
           {
             name: "Estudent",
             authorizedModules: [
-              { name: "prueba", component: <>Hola amigos</> },
+              { name: "prueba"},
             ],
           },
         ]),
