@@ -40,16 +40,9 @@ type MultiProjectsRoutesProps = {
 
  const MultiProjectsRoutes: React.FC<MultiProjectsRoutesProps> = ({suscribeProjects}) => {
   const [flag, setFlag] = useState<boolean>(false)
-  useEffect(() => {
-    if(flag) {
-
-    } else {
-      suscribeProjects.forEach((p) => {
-        p.initProyect()
-    })
-    setFlag(true)
-    }
-  }, [flag])
+  suscribeProjects.forEach((p) => {
+    p.initProyect()
+})
     
   return (
     <Router> 

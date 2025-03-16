@@ -1,8 +1,7 @@
-import { Projects } from "../../multiProjectLibrary/projectsManager";
   import { Project } from "../../multiProjectLibrary/projectsManager/objects/project";
 
 
-export const dropshippingProject: Project = new Project({name: Projects.DROPSHIPPING, roles: [
+export const dropshippingProject: Project = new Project({name: 'dropshipping', roles: [
     {
     name: "Logister",
     authorizedModules: [

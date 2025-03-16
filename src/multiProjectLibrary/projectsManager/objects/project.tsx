@@ -1,6 +1,4 @@
-import { Admin, Projects } from "..";
-import { Module } from "../models/moduleModel";
-import { ProjectsAdmin } from "../models/ProjectAdminModel";
+import { Admin } from "..";
 import { ProjectPropierties, Rol } from "../models/ProjectPropiertiesModel";
 
 export class Project {
@@ -16,16 +14,12 @@ export class Project {
   }
 
   static instance = (
-    project: Projects,
+    project: string,
     roles: Rol[]
-  ): Partial<ProjectsAdmin> => {
-    return {
-      [project]: new Project({
-        name: project,
-        roles: roles 
-      }),
-    };
+  ): Project => {
+    return new Project({
+      name: project,
+      roles: roles 
+    })
   };
-
-  
 }

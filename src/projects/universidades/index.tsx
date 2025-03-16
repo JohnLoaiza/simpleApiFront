@@ -1,9 +1,7 @@
-import { Projects } from "../../multiProjectLibrary/projectsManager";
-import { Module } from "../../multiProjectLibrary/projectsManager/models/moduleModel";
 import { Project } from "../../multiProjectLibrary/projectsManager/objects/project";
 
 export const universitiesProject: Project = new Project({
-  name: Projects.INDICATORS,
+  name: 'universities',
   roles: [
     {
       name: "Admin",

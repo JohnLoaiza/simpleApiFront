@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { Admin, Projects } from "..";
+import { Admin } from "..";
 import ProtectedRoute from "./ProtectedRoute";
 
 interface InicialiceProjectProps {
@@ -17,14 +17,16 @@ console.log('project es');
 console.log(project);
 
 
-
+ console.log('project son');
+ console.log(Admin.projectsAdmin());
+ 
   const projectName = Admin.validProject(project);
   console.log('sale');
   
   if (projectName) {
     console.log('es valido');
     
-    const projectLoad = Admin.setProjectSelected(projectName as Projects);
+    const projectLoad = Admin.setProjectSelected(project);
     if (projectLoad) {
       return props.protected? <ProtectedRoute element={props.element} /> : props.element;
     }
