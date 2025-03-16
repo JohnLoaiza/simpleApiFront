@@ -117,11 +117,11 @@ const Table = (props: Props) => {
   const addDoc = async (doc: any) => {
     console.log('requset va');
     console.log(doc);
-    console.log(doc.properties);
+    console.log(doc.propierties);
     
     
     const response = await axios
-      .post(`${apiRoute}/${project}/${collection}/insert`, doc.properties)
+      .post(`${apiRoute}/${project}/${collection}/insert`, doc.propierties)
       .catch(() => {
         console.log("no hay que actualizar");
       });
@@ -190,6 +190,7 @@ const Table = (props: Props) => {
                       return (
                         <td key={i}>
                           {identificateVar(
+                            finalValue,
                             finalValue,
                             finalValue,
                             <InfoIconTooltip

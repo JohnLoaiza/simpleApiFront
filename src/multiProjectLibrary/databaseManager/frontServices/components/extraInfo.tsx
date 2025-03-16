@@ -3,7 +3,7 @@ import './extraInfo.css'
 import { FaEdit, FaPlus, FaTrash } from "react-icons/fa";
 
 type MyType = string | object | any[];
-export const identificateVar = (myVariable: MyType, isString: any, isArray: any, isObject: any) => {
+export const identificateVar = (myVariable: MyType, isString: any, isNumber: any, isArray: any, isObject: any) => {
   if (typeof myVariable === 'string') {
     // Es un string
     console.log("Es un string:", myVariable);
@@ -12,14 +12,14 @@ export const identificateVar = (myVariable: MyType, isString: any, isArray: any,
     // Es un array
     console.log("Es un array:", myVariable);
     return isArray
+  }  else if (typeof myVariable === 'number' && myVariable !== null) {
+    // Es un objeto
+    console.log("Es un number:", myVariable);
+    return isNumber
   } else if (typeof myVariable === 'object' && myVariable !== null) {
     // Es un objeto
     console.log("Es un objeto:", myVariable);
     return isObject
-  } else if (typeof myVariable === 'number' && myVariable !== null) {
-    // Es un objeto
-    console.log("Es un objeto:", myVariable);
-    return myVariable
   } else {
     console.log("Tipo desconocidoo");
     console.log(myVariable);
@@ -55,6 +55,9 @@ export const ObjetctToView = ({info, setEditModal, mapList, doc, editDoc}: any) 
         <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
           {finalValue}
         </span>,
+        <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+        {finalValue}
+      </span>,
         // Si es un array o un objeto
         <InfoIconTooltip info={finalValue} />,
         <InfoIconTooltip info={finalValue} />
@@ -80,7 +83,7 @@ console.log(info);
   return (
     <>
     <strong style={{textAlign: 'center'}}>{title}</strong>
-    <FaPlus onClick={() => setEditModal({editAs: identificateVar(info[0], 'simpleList', '', 'objectList') , flag: true, doc: doc, obj:  info[0], mapList: mapList, asEdit: false, addDoc: addDoc, editDoc: editDoc, indexList: Object.keys(info[0]) })} style={{ cursor: 'pointer', marginRight: '10px' }} title="Add New" />
+    <FaPlus onClick={() => setEditModal({editAs: identificateVar(info[0], 'simpleList','simpleList', '', 'objectList') , flag: true, doc: doc, obj:  info[0], mapList: mapList, asEdit: false, addDoc: addDoc, editDoc: editDoc, indexList: Object.keys(info[0]) })} style={{ cursor: 'pointer', marginRight: '10px' }} title="Add New" />
 
       {/* Encabezado de la tabla */}
       <div style={{ display: 'flex', gap: '10px', fontWeight: 'bold', width: '100%' }}>
@@ -111,7 +114,7 @@ console.log(info);
               }
             }
             const objectOrObjectList = <InfoIconTooltip editDoc={editDoc} doc={doc} setEditModal={setEditModal} mapList={[...mapList, [key, index]]} info={finalValue}></InfoIconTooltip>
-            return <span key={key} style={{ width: '100px', textAlign: 'center' }}>{identificateVar(finalValue, finalValue, objectOrObjectList, objectOrObjectList)}</span>
+            return <span key={key} style={{ width: '100px', textAlign: 'center' }}>{identificateVar(finalValue, finalValue, finalValue, objectOrObjectList, objectOrObjectList)}</span>
           })}
            <FaEdit onClick={() => {console.log(obj); console.log(Object.keys(info[0]));
            
@@ -135,9 +138,9 @@ function simpleList(setEditModal: any, mapList: any, doc: any, info: any, editDo
 export const InfoIconTooltip = ({ info, mapList = [], setEditModal, doc, editDoc, addDoc }: any) => {
   const [showTooltip, setShowTooltip] = useState(false);
 
-  const infoProcess = () => identificateVar(info, info,
+  const infoProcess = () => identificateVar(info, info, info,
     <>
-      {identificateVar(info, false, true, false) ? (
+      {identificateVar(info, false, false, true, false) ? (
         isObject(info[0]) ? renderObjectList(info, mapList, '', setEditModal, doc, editDoc, addDoc) : (
           // Muestra lista simple de strings si no es un array de objetos
         simpleList(setEditModal, mapList, doc, info, editDoc, addDoc)  

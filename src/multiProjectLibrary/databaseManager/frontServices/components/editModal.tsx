@@ -42,7 +42,7 @@ const EditModal = (props: ModalProps) => {
 
       console.log("y va a entrar a " + c);
 
-      const flag = identificateVar(c, "string", "subCollection", "imposible");
+      const flag = identificateVar(c, "string","number", "subCollection", "imposible");
 
       if (flag === "string") {
         collectionUpdate = collectionUpdate[c];
@@ -95,7 +95,7 @@ const EditModal = (props: ModalProps) => {
 
       console.log("y va a entrar a " + c);
 
-      const flag = identificateVar(c, "string", "subCollection", "imposible");
+      const flag = identificateVar(c, "string","number", "subCollection", "imposible");
 
       if (flag === "string") {
         collectionUpdate = collectionUpdate[c];
@@ -107,18 +107,29 @@ const EditModal = (props: ModalProps) => {
       console.log(collectionUpdate);
     });
     indexList.forEach((i) => {
-      const identificate = identificateVar(obj[i], "", "array", "object");
+      const identificate = identificateVar(obj[i], "", "number", "array", "object");
       if (identificate === "array") {
+        console.log('identifica array');
+        
         const arrayIdentificate = identificateVar(
           obj[i][0],
           "string",
+          "number",
           "array",
           "object"
         );
+        console.log('tipo');
+        console.log(arrayIdentificate);
+        
+        
         if (arrayIdentificate === "object") {
           objeto.propierties[i] = [obj[i][0]];
         } else if (arrayIdentificate === "") {
           objeto.propierties[i] = [];
+        } else if (arrayIdentificate === "string" ) {
+          objeto.propierties[i] = [...obj[i][0], obj[i][2]];
+        } else if (arrayIdentificate === "number" ) {
+          objeto.propierties[i] = [obj[i][0], obj[i][2]];
         }
       } else if (identificate === "object") {
         objeto.propierties[i] = obj[i];
@@ -161,7 +172,7 @@ const EditModal = (props: ModalProps) => {
     console.log("editando");
     console.log(objeto);
 
-    objeto[i] = e.target.value;
+    objeto.propierties[i] = e.target.value;
     setObject(objeto);
     setEdit(true);
   };
@@ -223,6 +234,7 @@ const EditModal = (props: ModalProps) => {
               indexList.map((i) => {
                 const render = identificateVar(
                   asEdit ? objeto[i] : obj[i],
+                  true,
                   true,
                   false,
                   false
