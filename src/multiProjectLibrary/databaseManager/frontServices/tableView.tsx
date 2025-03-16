@@ -4,7 +4,7 @@ import { FaEdit, FaTrash, FaSync, FaPlus } from "react-icons/fa"; // Importar í
 import "./Table.css"; // Archivo de estilos para personalizar la tabla
 import axios from "axios";
 import EditModal, { ModalProps } from "./components/editModal";
-import { apiRoute } from "../../../configs";
+import { apiRoute } from "../../configs";
 import InfoIconTooltip, { identificateVar, isJSON } from "./components/extraInfo";
 import DynamicKeyValue from "./createDb";
 

@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import styles from '../../../views/styles.module.css';
-import { apiRoute } from '../../../configs';
+import styles from '../utils/styles.module.css';
+import { apiRoute } from '../../configs';
 import { Link, useNavigate } from 'react-router-dom';
-import { getData } from '../../../initData';
 import { Admin } from '../../projectsManager';
-import { MainRoutes } from '../../../App';
+import { MainRoutes } from '../../routesManager/multiProjectRoutes';
 
 const Login: React.FC = () => {
     const [username, setUsername] = useState('');
@@ -15,10 +14,7 @@ const Login: React.FC = () => {
     const [message, setMessage] = useState<string | null>(null);
     const navigate = useNavigate(); // Hook de navegación
 
-
-  
       useEffect(() => {
-        getData();
         return () => { };
       }, []);
     
@@ -96,6 +92,7 @@ const Login: React.FC = () => {
                     <Link to={Admin.generateProjectRoute(MainRoutes.REGISTER)} className={styles.registerLink}>
                         Regístrate aquí
                     </Link>
+                    {Admin.generateProjectRoute(MainRoutes.REGISTER)}
                 </p>
             </form>
         </div>

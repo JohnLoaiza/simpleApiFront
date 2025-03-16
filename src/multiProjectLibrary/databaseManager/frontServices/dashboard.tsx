@@ -1,15 +1,15 @@
 // components/Dashboard.tsx
 import React, { useEffect, useState } from "react";
-import styles from "../../../views/styles.module.css";
+import styles from '../utils/styles.module.css';
 import { useNavigate, useParams } from "react-router-dom";
 import { Admin } from "../../projectsManager";
-import { MainRoutes } from "../../../App";
-import Sidebar from "../../../components/Sidebar";
+import Sidebar from "./components/Sidebar";
 import ModuleContent from "./ModuleContent";
 import EditModal from "./components/editModal";
 import { Sesion } from "../../sesionManager";
 import { Rol } from "../../projectsManager/models/ProjectPropiertiesModel";
 import { Module } from "../../projectsManager/models/moduleModel";
+import { MainRoutes } from "../../routesManager/multiProjectRoutes";
 
 export interface Settings {
   sesion: false;

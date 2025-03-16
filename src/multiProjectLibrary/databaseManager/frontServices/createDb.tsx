@@ -34,7 +34,7 @@ const DynamicKeyValue = (props: Props) => {
   const actualizarObjetoFinal = (pares: ParClaveValor[]) => {
     var objetoResultado: Record<string, any> = {};
     pares.forEach(par => {
-      objetoResultado[par.indice] = identificateVar(par.valor, par.valor, JSON.parse(par.valor), JSON.parse(par.valor));
+      objetoResultado[par.indice] = identificateVar(par.valor, par.valor, par.valor, JSON.parse(par.valor), JSON.parse(par.valor));
     });
     setObjetoFinal(objetoResultado);
     setEditorTexto(JSON.stringify(objetoResultado, null, 2));

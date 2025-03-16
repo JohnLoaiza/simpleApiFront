@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { setSesionTime } from '../configs';
+import { setSesionTime } from '../../../configs';
 
 interface CountdownTimerProps {
   initialTime: string; // Formato "hh:mm:ss"

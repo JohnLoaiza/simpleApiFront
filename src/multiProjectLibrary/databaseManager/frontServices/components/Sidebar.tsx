@@ -1,12 +1,12 @@
 // components/Sidebar.tsx
 import React from 'react';
-import styles from '../views/styles.module.css';
+import styles from '../../utils/styles.module.css';
 import { useNavigate } from 'react-router-dom';
-import { Sesion } from '../multiProjectLibrary/sesionManager';
-import { Admin } from '../multiProjectLibrary/projectsManager';
-import { MainRoutes } from '../App';
-import { User } from '../multiProjectLibrary/databaseManager/frontServices/dashboard';
-import { Module } from '../multiProjectLibrary/projectsManager/models/moduleModel';
+import { Sesion } from '../../../sesionManager';
+import { Admin } from '../../../projectsManager';
+import { User } from '../dashboard';
+import { Module } from '../../../projectsManager/models/moduleModel';
+import { MainRoutes } from '../../../routesManager/multiProjectRoutes';
 
 interface SidebarProps {
   onSelectModule: (module: Module) => void;

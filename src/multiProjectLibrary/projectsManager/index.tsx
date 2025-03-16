@@ -1,14 +1,15 @@
-import App, { MainRoutes, Params, routes } from "../../App";
+import { MainRoutes, Params, routes } from "../routesManager/multiProjectRoutes";
 import { ProjectsAdmin } from "./models/ProjectAdminModel";
 import { Project } from "./objects/project";
 
 export enum Projects {
   UNIVERSITIES = "universities",
   INDICATORS = "indicators",
+  DROPSHIPPING = "dropshiping"
 }
 
 export abstract class Admin {
-  private static PROJECTS: Partial<ProjectsAdmin>;
+  private static PROJECTS: Partial<ProjectsAdmin> = {};
 
   static projectSelected?: Project;
 
@@ -32,33 +33,18 @@ export abstract class Admin {
   private static initializeProjects(): void {
     if (!this.PROJECTS) {
       this.PROJECTS = {
-        ...(this.PROJECTS as Partial<ProjectsAdmin>),
-        ...Project.instance(Projects.UNIVERSITIES, [
-          { name: "Admin", authorizedModules: [] },
-          {
-            name: "Estudent",
-            authorizedModules: [
-              { name: "prueba"},
-              { name: "users"},
-              { name: "cursos"},
-              {name: "pruebaFinal"}
-
-            ],
-          },
-        ]),
-        ...Project.instance(Projects.INDICATORS, []),
+        ...(this.PROJECTS as Partial<ProjectsAdmin>)
       };
     }
   }
 
   static addProject(newProject: Project): void {
     this.initializeProjects();
-    if (!this.PROJECTS) {
       this.PROJECTS = {
         ...(this.PROJECTS as Partial<ProjectsAdmin>),
-        ...{ [newProject.props.name]: this },
+        ...{ [newProject.props.name]: newProject },
       };
-    }
+  
   }
 
   static projectsAdmin = (): ProjectsAdmin => {

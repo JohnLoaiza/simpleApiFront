@@ -7,10 +7,11 @@ import {
   useParams,
 } from "react-router-dom";
 import axios from "axios";
-import { apiRoute, setSesionTime } from "../../../configs";
+import { apiRoute, setSesionTime } from "../../configs";
 import { Admin } from "..";
 import { Module } from "../models/moduleModel";
 import { Sesion, SesionProps } from "../../sesionManager";
+import { MainRoutes } from "../../routesManager/multiProjectRoutes";
 
 interface ProtectedRouteProps {
   element: React.ReactNode;
@@ -80,7 +81,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ element }) => {
           !acumuloModules.map((m) => m.name).includes(module)
         ) {
           alert("No tienes acceso a este modulo");
-          navigate("/");
+          navigate(Admin.generateProjectRoute(MainRoutes.MAIN));
           return;
         }
 
@@ -98,7 +99,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ element }) => {
       } catch (error) {
         console.error("Error verificando usuario y rutas:", error);
         setIsValid(false);
-        navigate("/login");
+        navigate(Admin.generateProjectRoute(MainRoutes.LOGIN));
       }
     };
 
@@ -112,7 +113,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ element }) => {
 
   if (!isValid) {
     // Si el token no es válido, redirige al login
-    return <Navigate to="/login" state={{ from: location }} />;
+    return <Navigate to={Admin.generateProjectRoute(MainRoutes.LOGIN)} state={{ from: location }} />;
   }
   console.log("module es " + module);
   console.log("lista de rutas para este user es ");

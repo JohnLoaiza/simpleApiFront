@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import styles from '../../../views/styles.module.css';
-import { apiRoute } from '../../../configs';
+import styles from '../utils/styles.module.css';
+import { apiRoute } from '../../configs';
 import { Link, useNavigate } from 'react-router-dom';
 import { Rol } from '../../projectsManager/models/ProjectPropiertiesModel';
 import { Admin } from '../../projectsManager';
-import { MainRoutes } from '../../../App';
+import { MainRoutes } from '../../routesManager/multiProjectRoutes';
 
 const Register: React.FC = () => {
     const [username, setUsername] = useState('');

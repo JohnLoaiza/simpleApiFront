@@ -1,6 +1,6 @@
 // components/ModuleContent.tsx
-import {sesionTime } from '../../../configs';
-import CountdownTimer from '../../../components/viewSesionTime';
+import {sesionTime } from '../../configs';
+import CountdownTimer from './components/viewSesionTime';
 import Table from './tableView';
 import { Admin } from '../../projectsManager';
 import { User } from './dashboard';

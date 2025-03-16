@@ -5,7 +5,7 @@ import { ProjectPropierties, Rol } from "../models/ProjectPropiertiesModel";
 
 export class Project {
   props: ProjectPropierties;
-  private constructor(props: ProjectPropierties) {
+   constructor(props: ProjectPropierties) {
     this.props = props;
   }
 
